@@ -1,12 +1,12 @@
 {
   "name": "netsys-trainer",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "private": true,
-  "description": "Интерактивный тренажёр «Обжим витой пары» (прямой обжим, T568B) для МЭШ и GitHub Pages",
+  "description": "Интерактивные тренажёры по сетевым технологиям: обжим витой пары и монтаж сетевых розеток",
   "license": "MIT",
   "scripts": {
     "start": "node tools/serve.js",
-    "test": "node tests/smoke.test.js"
+    "test": "node tests/run-all.js"
   },
   "devDependencies": {
     "jsdom": "^30.1.3"

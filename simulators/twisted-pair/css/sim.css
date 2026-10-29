@@ -1,0 +1,476 @@
+/* ==========================================================================
+   sim.css — сцены тренажёра «Обжим витой пары»: кабель, стриппер, лоток жил,
+   коннектор RJ-45, кримпер, вставка и обжим.
+   ========================================================================== */
+
+/* ---------- Стриппер ---------------------------------------------------- */
+.tool-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  padding: 12px 0 6px;
+}
+
+.stripper {
+  position: relative;
+  width: 210px;
+  cursor: grab;
+  touch-action: none;
+  transition: transform var(--t);
+  filter: drop-shadow(0 10px 16px rgba(15, 23, 42, 0.16));
+}
+
+.stripper.is-dragging {
+  cursor: grabbing;
+  z-index: 12;
+}
+
+.stripper.is-snapped {
+  animation: tool-snap 420ms both;
+}
+
+@keyframes tool-snap {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(0.94) rotate(-2deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+
+/* Лоток с нумерованными слотами */
+.tray {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 6px;
+  padding: 12px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line-2);
+  background: linear-gradient(180deg, #f8fafc, #eef2f7);
+  box-shadow: inset 0 2px 6px rgba(15, 23, 42, 0.05);
+}
+
+.slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  min-height: 88px;
+  border-radius: var(--r-sm);
+  border: 1px dashed var(--line-2);
+  background: rgba(255, 255, 255, 0.7);
+  transition: border-color var(--t), background-color var(--t), transform var(--t);
+}
+
+.slot__num {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--ink-4);
+  order: 2;
+}
+
+.slot__wire {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 58px;
+  border-radius: 6px;
+}
+
+.slot__dry {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 58px;
+  color: var(--ink-4);
+  font-size: 1rem;
+}
+
+.slot.is-over {
+  border-color: var(--blue);
+  background: var(--blue-50);
+  transform: translateY(-2px);
+}
+
+.slot.is-correct {
+  border-color: #86efac;
+  background: var(--green-50);
+}
+
+.slot.is-correct .slot__num {
+  color: var(--green-600);
+}
+
+.slot.is-focusable {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.slot.has-wire {
+  cursor: pointer;
+}
+
+/* ---------- Коннектор RJ-45 -------------------------------------------- */
+.rj-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 8px 0;
+}
+
+.rj {
+  position: relative;
+  width: min(340px, 86vw);
+  max-width: 100%;
+  filter: drop-shadow(0 10px 18px rgba(15, 23, 42, 0.14));
+}
+
+.rj svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.rj.is-crimped {
+  filter: drop-shadow(0 0 1px rgba(22, 163, 74, 0.55)) drop-shadow(0 10px 18px rgba(15, 23, 42, 0.14));
+}
+
+.rj.is-crimped .rj__latch {
+  transform: translateY(1.4px) scaleY(0.84);
+}
+
+.rj__latch {
+  transition: transform var(--t);
+  transform-origin: center bottom;
+}
+
+.rj.is-crimped .rj__latch {
+  transform: translateY(1.5px) scaleY(0.82);
+}
+
+.rj.is-over {
+  filter: drop-shadow(0 0 0.5px var(--blue)) drop-shadow(0 10px 18px rgba(15, 23, 42, 0.14));
+}
+
+/* Подвижная вставка жил (глубина) */
+.depth {
+  display: grid;
+  gap: 6px;
+  flex: 0 1 250px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+.depth__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.depth__value {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--blue-700);
+}
+
+.depth__scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.66rem;
+  color: var(--ink-4);
+}
+
+.depth.is-good .depth__value {
+  color: var(--green-600);
+}
+
+/* ---------- Кримпер ----------------------------------------------------- */
+.crimper {
+  position: relative;
+  width: 250px;
+  cursor: pointer;
+  transition: transform var(--t);
+  filter: drop-shadow(0 12px 18px rgba(15, 23, 42, 0.18));
+  touch-action: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.crimper__jaw-top,
+.crimper__jaw-bottom {
+  transition: transform 90ms linear;
+}
+
+.crimper.is-squeezing .crimper__jaw-top {
+  transform: translateY(11px) rotate(0.5deg);
+}
+
+.crimper.is-squeezing .crimper__jaw-bottom {
+  transform: translateY(-11px);
+}
+
+.crimper.is-done {
+  animation: crimper-done 520ms both;
+}
+
+@keyframes crimper-done {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(0.97) translateY(2px);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.force {
+  display: grid;
+  gap: 5px;
+  width: 220px;
+}
+
+.force__bar {
+  height: 9px;
+  border-radius: var(--r-pill);
+  background: var(--surface-3);
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+}
+
+.force__fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  transition: width 60ms linear;
+}
+
+.force__label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--ink-3);
+  font-weight: 600;
+}
+
+.force.is-over .force__fill {
+  background: linear-gradient(90deg, #f59e0b, #dc2626);
+}
+
+/* ---------- Вставка в коннектор --------------------------------------- */
+.insert-scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 3vw, 34px);
+  flex-wrap: wrap;
+  padding: 18px 0 6px;
+  min-height: 260px;
+}
+
+.insert-bundle {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 10px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--sh-1);
+  cursor: grab;
+  transition: box-shadow var(--t), border-color var(--t);
+}
+
+.insert-bundle:hover {
+  box-shadow: var(--sh-2);
+}
+
+.insert-bundle__jacket {
+  width: 108px;
+  height: 30px;
+  border-radius: 6px 3px 3px 6px;
+  background: linear-gradient(180deg, #22a7c4, #0e7490 48%, #0b5f78);
+}
+
+.insert-bundle__wires {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 68px;
+}
+
+.insert-bundle__wires .wire {
+  width: 7px;
+  transition: height var(--t-slow);
+}
+
+.insert-bundle__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+.rj-drop {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  padding: 8px;
+  border-radius: var(--r-md);
+  border: 2px dashed transparent;
+  transition: border-color var(--t), background-color var(--t);
+}
+
+.rj-drop.is-over {
+  border-color: var(--blue);
+  background: var(--blue-50);
+}
+
+.insert-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 4px 0 10px;
+}
+
+/* ---------- Сцена обжима ----------------------------------------------- */
+.crimp-scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 3vw, 30px);
+  flex-wrap: wrap;
+  padding: 12px 0;
+  min-height: 300px;
+}
+
+.crimp-hold {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.crimp-hold .crimper {
+  pointer-events: none;
+}
+
+.crimp-hint {
+  font-size: 0.76rem;
+  color: var(--ink-3);
+  text-align: center;
+  max-width: 240px;
+}
+
+/* ---------- Итоговые панели шага --------------------------------------- */
+.summary {
+  display: grid;
+  gap: 8px;
+}
+
+.summary__row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.83rem;
+  color: var(--ink-2);
+}
+
+.summary__row b {
+  color: var(--ink);
+}
+
+.summary__chip {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: var(--green);
+}
+
+.summary__chip--warn {
+  background: var(--amber);
+}
+
+
+
+@media (max-width: 620px) {
+  .strip-work {
+    padding-top: 18px;
+  }
+
+  .strip-work__grid {
+    grid-template-columns: 34% minmax(0, 1fr);
+    height: 84px;
+  }
+
+  .strip-work__rules {
+    grid-template-columns: 34% minmax(0, 1fr);
+  }
+
+  .bench-intro {
+    min-height: 220px;
+    padding-top: 16px;
+  }
+
+  .bench-intro__arrow {
+    transform: rotate(90deg);
+  }
+
+  .bench-tool {
+    min-width: 200px;
+  }
+
+  .bench-tool .stripper {
+    width: 150px;
+  }
+
+  .insert-bundle__jacket {
+    width: 76px;
+  }
+
+  .insert-bundle__wires {
+    height: 56px;
+  }
+
+  .rj {
+    width: min(320px, 82vw);
+  }
+
+  .crimp-scene {
+    min-height: 250px;
+  }
+}
+

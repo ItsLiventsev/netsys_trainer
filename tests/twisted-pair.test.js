@@ -1,80 +1,23 @@
 #!/usr/bin/env node
 /**
- * Дымовой тест тренажёра (без браузера, на jsdom).
- * Запуск: npm install && npm test
- *
- * Проверяет:
- *  1. страница собирается без JS-ошибок и все панели отрисованы;
- *  2. стартовый балл равен 0;
- *  3. полный проход шагов 1–2 (клавиатурный сценарий) меняет состояние и баллы;
- *  4. отказ от неверной длины зачистки не завершает шаг;
- *  5. прогресс сохраняется в localStorage;
- *  6. в проекте нет внешних сетевых запросов (требование МЭШ).
+ * twisted-pair.test.js — дымовой тест тренажёра «Обжим витой пары».
+ * Запуск: npm test (или node tests/twisted-pair.test.js)
  */
 'use strict';
 
 const assert = require('node:assert');
 const fs = require('node:fs');
 const path = require('node:path');
-const { JSDOM } = require('jsdom');
+const { ROOT, SHARED, bootSimulator, wait } = require('./helpers');
 
-const ROOT = path.resolve(__dirname, '..');
-const SCRIPTS = ['data', 'graphics', 'state', 'drag', 'ui', 'steps', 'report', 'app'];
-
-function boot() {
-  const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>', {
-    url: 'http://localhost/',
-    pretendToBeVisual: true,
-    runScripts: 'dangerously'
-  });
-  const { window } = dom;
-
-  window.matchMedia = (query) => ({
-    matches: false,
-    media: query,
-    addListener() {},
-    removeListener() {},
-    addEventListener() {},
-    removeEventListener() {}
-  });
-  window.scrollTo = () => {};
-
-  const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-  const body = html.match(/<body>([\s\S]*)<script src="src\/js\/data.js"/)[1];
-  window.document.body.innerHTML = body;
-
-  const errors = [];
-  window.addEventListener('error', (e) => errors.push(e.message));
-
-  SCRIPTS.forEach((name) => {
-    const el = window.document.createElement('script');
-    el.textContent = fs.readFileSync(path.join(ROOT, 'src/js/' + name + '.js'), 'utf8');
-    window.document.body.appendChild(el);
-  });
-
-  window.__errors = errors;
-  return window;
-}
-
-const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-
-function helpers(window) {
-  const doc = window.document;
-  const q = (sel) => doc.querySelector(sel);
-  const qa = (sel) => Array.from(doc.querySelectorAll(sel));
-  const click = (el) => {
-    assert.ok(el, 'элемент для клика не найден');
-    el.dispatchEvent(new window.MouseEvent('click', { bubbles: true, cancelable: true }));
-  };
-  const key = (el, k) => el.dispatchEvent(new window.KeyboardEvent('keydown', { key: k, bubbles: true, cancelable: true }));
-  return { doc, q, qa, click, key };
-}
+const SIM = 'simulators/twisted-pair';
+const BASE = 'simulators/twisted-pair';
 
 async function run() {
   const STD = ['BO', 'O', 'BZ', 'S', 'BS', 'Z', 'BK', 'K'];
-  const window = boot();
-  const { q, qa, click, key } = helpers(window);
-  await wait(200);
+  const ctx = bootSimulator('twisted-pair');
+  const { window, q, qa, click, key } = ctx;
+  await wait(220);
 
   /* 1. Каркас */
   assert.strictEqual(qa('.step-pill').length, 7, 'семь шагов в степпере');
@@ -135,16 +78,23 @@ async function run() {
   assert.strictEqual(saved.ends.A.order.filter(Boolean).length, 8);
 
   /* 8. Нет JS-ошибок */
-  assert.deepStrictEqual(window.__errors, [], 'ошибки исполнения: ' + window.__errors.join('; '));
+  assert.deepStrictEqual(ctx.errors, [], 'ошибки исполнения: ' + ctx.errors.join('; '));
 
   /* 9. Нет внешних запросов — требование изоляции МЭШ */
   const files = [
-    'index.html',
-    'src/styles/base.css',
-    'src/styles/layout.css',
-    'src/styles/stage.css',
-    ...SCRIPTS.map((n) => 'src/js/' + n + '.js')
-  ];
+    SIM + '/index.html',
+    'shared/css/base.css',
+    'shared/css/components.css',
+    'shared/css/report.css',
+    SIM + '/css/sim.css'
+  ].concat(SHARED, [
+    SIM + '/js/data.js',
+    SIM + '/js/graphics.js',
+    SIM + '/js/state.js',
+    SIM + '/js/steps.js',
+    SIM + '/js/report.js',
+    SIM + '/js/app.js'
+  ]);
   files.forEach((rel) => {
     const content = fs.readFileSync(path.join(ROOT, rel), 'utf8');
     const net = content.match(/(src|href)\s*=\s*["']https?:\/\//gi) || content.match(/@import\s+url\(\s*["']?https?:/gi);
@@ -152,7 +102,7 @@ async function run() {
   });
 
   window.close();
-  console.log('✓ дымовой тест пройден: каркас, шаги 1–2, баллы, localStorage, отсутствие внешних запросов');
+  console.log('✓ «Обжим витой пары»: каркас, шаги 1–2, баллы, localStorage, отсутствие внешних запросов');
 }
 
 run().catch((err) => {

@@ -1,0 +1,239 @@
+/* ==========================================================================
+   hub.css — стартовая страница со списком тренажёров.
+   Использует токены и ресет из base.css.
+   ========================================================================== */
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.hub-header {
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.hub-header__inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 12px clamp(14px, 4vw, 28px);
+}
+
+.hub-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.hub-brand__mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(160deg, #3b82f6, #1d4ed8);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.28);
+}
+
+.hub-brand__mark svg {
+  width: 21px;
+  height: 21px;
+}
+
+.hub-brand__text {
+  display: grid;
+  line-height: 1.15;
+}
+
+.hub-brand__title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.hub-brand__sub {
+  font-size: 0.72rem;
+  color: var(--ink-3);
+}
+
+.hub-main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(22px, 5vw, 44px) clamp(14px, 4vw, 28px) 56px;
+}
+
+.hub-hero {
+  display: grid;
+  gap: 10px;
+  max-width: 640px;
+  margin-bottom: clamp(22px, 4vw, 34px);
+}
+
+.hub-hero h1 {
+  margin: 0;
+  font-size: clamp(1.35rem, 3.4vw, 1.85rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.hub-hero p {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.hub-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.hub-tag {
+  padding: 2px 9px;
+  border-radius: var(--r-pill);
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+  color: var(--blue-700);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.hub-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.sim-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--sh-1);
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+}
+
+.sim-card:hover,
+.sim-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--blue-100);
+  box-shadow: var(--sh-3);
+  outline: none;
+}
+
+.sim-card__art {
+  display: grid;
+  place-items: center;
+  height: 116px;
+  border-radius: var(--r-md);
+  background: linear-gradient(160deg, #f8fafc, #eef2f7);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.sim-card__art svg {
+  width: 100%;
+  height: 100%;
+}
+
+.sim-card__head {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.sim-card__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.sim-card__num {
+  flex: 0 0 auto;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--ink-4);
+}
+
+.sim-card__text {
+  display: block;
+  margin: 6px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.sim-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.sim-card__meta span {
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  color: var(--ink-3);
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.sim-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--blue-700);
+}
+
+.sim-card__cta svg {
+  width: 15px;
+  height: 15px;
+}
+
+.hub-foot {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 clamp(14px, 4vw, 28px) 40px;
+  font-size: 0.78rem;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+
+.hub-foot code {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  background: var(--surface-2);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sim-card {
+    transition: none;
+  }
+
+  .sim-card:hover,
+  .sim-card:focus-visible {
+    transform: none;
+  }
+}
