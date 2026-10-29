@@ -8,7 +8,7 @@
 const assert = require('node:assert');
 const fs = require('node:fs');
 const path = require('node:path');
-const { ROOT, SHARED, bootSimulator, wait } = require('./helpers');
+const { ROOT, bootSimulator, labFiles, wait } = require('./helpers');
 
 const SIM = 'simulators/twisted-pair';
 const BASE = 'simulators/twisted-pair';
@@ -81,20 +81,7 @@ async function run() {
   assert.deepStrictEqual(ctx.errors, [], 'ошибки исполнения: ' + ctx.errors.join('; '));
 
   /* 9. Нет внешних запросов — требование изоляции МЭШ */
-  const files = [
-    SIM + '/index.html',
-    'shared/css/base.css',
-    'shared/css/components.css',
-    'shared/css/report.css',
-    SIM + '/css/sim.css'
-  ].concat(SHARED, [
-    SIM + '/js/data.js',
-    SIM + '/js/graphics.js',
-    SIM + '/js/state.js',
-    SIM + '/js/steps.js',
-    SIM + '/js/report.js',
-    SIM + '/js/app.js'
-  ]);
+  const files = labFiles('twisted-pair');
   files.forEach((rel) => {
     const content = fs.readFileSync(path.join(ROOT, rel), 'utf8');
     const net = content.match(/(src|href)\s*=\s*["']https?:\/\//gi) || content.match(/@import\s+url\(\s*["']?https?:/gi);
