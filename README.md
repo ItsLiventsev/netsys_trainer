@@ -238,14 +238,33 @@ tools/serve.js                локальный статический серв
 
 ## GitHub Pages
 
-1. Запушьте репозиторий в GitHub.
-2. **Settings → Pages → Build and deployment**: Source = *GitHub Actions* (workflow уже лежит
-   в `.github/workflows/pages.yml`: сначала `npm test`, затем публикация корня репозитория)
-   либо *Deploy from a branch* → `main` / `/ (root)`.
-3. Витрина: `https://<user>.github.io/<repo>/`, тренажёры — в подкаталогах `simulators/…`.
+Деплой делает workflow `.github/workflows/pages.yml` при каждом пуше в `main`
+(или вручную: **Actions → Deploy to GitHub Pages → Run workflow**).
 
-Файл `.nojekyll` уже добавлен: он отключает обработку Jekyll и сохраняет все пути как есть.
-Ссылки на стили и скрипты относительные, поэтому проект работает и из подкаталога.
+**Обязательное условие — один раз включить Pages в настройках репозитория:**
+
+1. **Settings** (вкладка репозитория) → **Pages**.
+2. **Build and deployment → Source** = **GitHub Actions**.
+3. **Save**. После этого любой пуш в `main` публикует сайт.
+
+Адреса: витрина `https://<user>.github.io/<repo>/`, тренажёры — в подкаталогах
+`simulators/twisted-pair/` и `simulators/network-socket/`.
+
+### Если деплой упал
+
+| Ошибка в логе | Причина и что делать |
+| --- | --- |
+| `Get Pages site failed. Please verify that the repository has Pages enabled…` | Pages не включён. Выполните шаги 1–3 выше и запустите workflow заново (**Re-run all jobs**). |
+| `GitHub Pages не включён` (наша проверка) | То же самое, но с подсказкой: шаг `Проверить, что Pages включён` падает раньше и печатает инструкцию. |
+| `Resource not accessible by integration` при создании Pages через API | У токена нет прав `administration`/`pages` — включите Pages руками в Settings, из workflow это не сделать с `GITHUB_TOKEN`. |
+| `Deployment failed, try again later` / очередь | Повторный запуск: **Re-run all jobs**. Параллельные деплои схлопываются через `concurrency: pages`. |
+
+Workflow сначала прогоняет `npm test` отдельной job — если тренажёры сломаны, сайт не публикуется.
+
+Файл `.nojekyll` уже добавлен (и передаётся в артефакт через `include-hidden-files`): он отключает
+обработку Jekyll и сохраняет все пути как есть. Ссылки на стили и скрипты относительные,
+поэтому проект работает и из подкаталога. При использовании варианта *Deploy from a branch*
+выберите `main` / `/ (root)`.
 
 ---
 
