@@ -1,0 +1,2034 @@
+/* ==========================================================================
+   stage.css — рабочая зона: верстак, кабель, стриппер, лоток жил,
+   коннектор RJ-45, кримпер, тестер, отчёт, тест.
+   ========================================================================== */
+
+/* ---------- Шапка рабочей зоны ------------------------------------------ */
+.stage__card {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-2);
+}
+
+.stage__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, #fff, #fbfcfe);
+}
+
+.stage__badge {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--blue-50);
+  color: var(--blue-700);
+  font-weight: 700;
+  font-size: 0.92rem;
+  border: 1px solid var(--blue-100);
+  font-variant-numeric: tabular-nums;
+}
+
+.stage__titles {
+  min-width: 0;
+}
+
+.stage__title {
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.stage__sub {
+  margin-top: 2px;
+  font-size: 0.82rem;
+  color: var(--ink-3);
+}
+
+.stage__head-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+/* Индикатор прогресса шага */
+.step-progress {
+  flex: 0 0 auto;
+  display: grid;
+  gap: 4px;
+  min-width: 92px;
+  text-align: right;
+}
+
+.step-progress__bar {
+  height: 5px;
+  border-radius: var(--r-pill);
+  background: var(--surface-3);
+  overflow: hidden;
+}
+
+.step-progress__fill {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--blue), #06b6d4);
+  transition: width var(--t-slow);
+}
+
+.step-progress__label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Верстак ------------------------------------------------------ */
+.bench {
+  position: relative;
+  min-height: 360px;
+  padding: 16px;
+  background-color: #fbfcfe;
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.07), transparent 62%),
+    linear-gradient(rgba(148, 163, 184, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.14) 1px, transparent 1px);
+  background-size: 100% 100%, 26px 26px, 26px 26px;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.bench__label {
+  position: absolute;
+  top: 10px;
+  left: 14px;
+  z-index: 2;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  pointer-events: none;
+}
+
+.bench__caption {
+  padding: 10px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  font-size: 0.8rem;
+  color: var(--ink-3);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.bench__caption svg {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  color: var(--blue);
+}
+
+/* Зона-цель (drop) */
+.dropzone {
+  position: relative;
+  border: 2px dashed var(--line-2);
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.6);
+  transition: border-color var(--t), background-color var(--t), box-shadow var(--t);
+}
+
+.dropzone.is-over {
+  border-color: var(--blue);
+  background: var(--blue-50);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+.dropzone.is-ready {
+  animation: dz-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes dz-pulse {
+  0%,
+  100% {
+    border-color: var(--line-2);
+  }
+  50% {
+    border-color: #93c5fd;
+  }
+}
+
+.dropzone.is-hit {
+  border-color: var(--green);
+  background: var(--green-50);
+}
+
+/* Свободный конец кабеля: изоляция слева, жилы справа */
+.cable-strip-view {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 210px;
+  padding: 10px 22px;
+}
+
+.cable-strip-view__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: min(560px, 100%);
+  height: 64px;
+}
+
+.cable-strip-view__jacket {
+  position: relative;
+  flex: 0 0 auto;
+  width: 40%;
+  height: 52px;
+  border-radius: 8px 5px 5px 8px;
+  background: linear-gradient(180deg, #22a7c4, #0e7490 48%, #0b5f78);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), inset 0 -4px 8px rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
+
+.cable-strip-view__jacket::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: 6px;
+  bottom: 6px;
+  width: 6px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #0b5f78, #1489a6);
+}
+
+.cable-strip-view__wires {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1 1 auto;
+  height: 58px;
+  padding-left: 4px;
+}
+
+.cable-strip-view__wires .wire {
+  flex: 1 1 0;
+  width: auto;
+  max-width: 13px;
+}
+
+/* Линейка */
+.ruler {
+  position: relative;
+  height: 30px;
+  margin: 6px auto 0;
+  width: min(560px, 100%);
+  border-top: 1px solid var(--line-2);
+  color: var(--ink-4);
+  font-size: 0.64rem;
+}
+
+.ruler__tick {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 6px;
+  background: var(--line-2);
+  transform: translateX(-0.5px);
+}
+
+.ruler__tick--major {
+  height: 10px;
+  background: var(--ink-4);
+}
+
+.ruler__tick span {
+  position: absolute;
+  top: 11px;
+  left: 0;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.ruler__ok {
+  position: absolute;
+  top: -1px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--green);
+}
+
+/* ---------- Стриппер ---------------------------------------------------- */
+.tool-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  padding: 12px 0 6px;
+}
+
+.stripper {
+  position: relative;
+  width: 210px;
+  cursor: grab;
+  touch-action: none;
+  transition: transform var(--t);
+  filter: drop-shadow(0 10px 16px rgba(15, 23, 42, 0.16));
+}
+
+.stripper.is-dragging {
+  cursor: grabbing;
+  z-index: 12;
+}
+
+.stripper.is-snapped {
+  animation: tool-snap 420ms both;
+}
+
+@keyframes tool-snap {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(0.94) rotate(-2deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.draggable {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.draggable.is-picked {
+  outline: 2px dashed var(--blue);
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+
+.draggable.is-dragging {
+  position: relative;
+  z-index: 15;
+  cursor: grabbing;
+  filter: drop-shadow(0 14px 20px rgba(15, 23, 42, 0.28));
+}
+
+/* ---------- Лоток жил (шаг 2) ------------------------------------------ */
+.sort-area {
+  display: grid;
+  gap: 14px;
+  padding: 6px 0 2px;
+}
+
+.bundle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--r-md);
+  border: 1px dashed var(--line-2);
+  background: rgba(255, 255, 255, 0.65);
+  transition: border-color var(--t), background-color var(--t);
+}
+
+.bundle__label {
+  flex: 0 0 auto;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  writing-mode: horizontal-tb;
+  width: 74px;
+}
+
+.bundle__wires {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  min-height: 54px;
+}
+
+.bundle__wires:empty::after {
+  content: "все жилы разложены";
+  font-size: 0.78rem;
+  color: var(--ink-4);
+  font-style: italic;
+}
+
+.chip-wire {
+  --wc: #94a3b8;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 52px;
+  padding: 0;
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  border-radius: 8px;
+  cursor: grab;
+  background-color: var(--wc);
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 5px,
+    rgba(255, 255, 255, 0.9) 5px 8px
+  );
+  box-shadow: 0 3px 6px -4px rgba(15, 23, 42, 0.7), inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  transition: transform var(--t-fast), box-shadow var(--t), opacity var(--t);
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.chip-wire--solid {
+  background-image: none;
+}
+
+.chip-wire:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 14px -8px rgba(15, 23, 42, 0.8);
+}
+
+.chip-wire:active {
+  cursor: grabbing;
+}
+
+.chip-wire__abbr {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.86);
+  border-radius: 4px;
+  padding: 1px 3px;
+  pointer-events: none;
+}
+
+.chip-wire--solid .chip-wire__abbr {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.chip-wire.is-picked {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  transform: translateY(-3px);
+}
+
+.chip-wire.is-dragging {
+  position: relative;
+  z-index: 60;
+  pointer-events: none;
+  box-shadow: 0 18px 28px -14px rgba(15, 23, 42, 0.7);
+  transition: none;
+}
+
+@keyframes wire-bounce {
+  0% {
+    transform: translateX(0);
+  }
+  30% {
+    transform: translateX(-7px) rotate(-5deg);
+  }
+  55% {
+    transform: translateX(6px) rotate(4deg);
+  }
+  80% {
+    transform: translateX(-3px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.chip-wire.is-bounce,
+.slot.is-bounce {
+  animation: wire-bounce 380ms both;
+}
+
+/* Лоток с нумерованными слотами */
+.tray {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 6px;
+  padding: 12px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line-2);
+  background: linear-gradient(180deg, #f8fafc, #eef2f7);
+  box-shadow: inset 0 2px 6px rgba(15, 23, 42, 0.05);
+}
+
+.slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  min-height: 88px;
+  border-radius: var(--r-sm);
+  border: 1px dashed var(--line-2);
+  background: rgba(255, 255, 255, 0.7);
+  transition: border-color var(--t), background-color var(--t), transform var(--t);
+}
+
+.slot__num {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--ink-4);
+  order: 2;
+}
+
+.slot__wire {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 58px;
+  border-radius: 6px;
+}
+
+.slot__dry {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 58px;
+  color: var(--ink-4);
+  font-size: 1rem;
+}
+
+.slot.is-over {
+  border-color: var(--blue);
+  background: var(--blue-50);
+  transform: translateY(-2px);
+}
+
+.slot.is-correct {
+  border-color: #86efac;
+  background: var(--green-50);
+}
+
+.slot.is-correct .slot__num {
+  color: var(--green-600);
+}
+
+.slot.is-focusable {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.slot.has-wire {
+  cursor: pointer;
+}
+
+/* ---------- Схема стандарта (подсказка) --------------------------------- */
+.scheme {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.scheme__card {
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+.scheme__title {
+  font-size: 0.76rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.scheme__lanes {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 3px;
+}
+
+.scheme__lane {
+  display: grid;
+  gap: 3px;
+  justify-items: center;
+}
+
+.scheme__lane .wire {
+  width: 100%;
+  height: 46px;
+}
+
+.scheme__lane b {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--ink-4);
+  font-weight: 600;
+}
+
+.scheme--wide {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* ---------- Коннектор RJ-45 -------------------------------------------- */
+.rj-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 8px 0;
+}
+
+.rj {
+  position: relative;
+  width: min(340px, 86vw);
+  max-width: 100%;
+  filter: drop-shadow(0 10px 18px rgba(15, 23, 42, 0.14));
+}
+
+.rj svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.rj.is-crimped {
+  filter: drop-shadow(0 0 1px rgba(22, 163, 74, 0.55)) drop-shadow(0 10px 18px rgba(15, 23, 42, 0.14));
+}
+
+.rj.is-crimped .rj__latch {
+  transform: translateY(1.4px) scaleY(0.84);
+}
+
+.rj__latch {
+  transition: transform var(--t);
+  transform-origin: center bottom;
+}
+
+.rj.is-crimped .rj__latch {
+  transform: translateY(1.5px) scaleY(0.82);
+}
+
+.rj.is-over {
+  filter: drop-shadow(0 0 0.5px var(--blue)) drop-shadow(0 10px 18px rgba(15, 23, 42, 0.14));
+}
+
+/* Подвижная вставка жил (глубина) */
+.depth {
+  display: grid;
+  gap: 6px;
+  flex: 0 1 250px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+.depth__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.depth__value {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--blue-700);
+}
+
+.depth__scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.66rem;
+  color: var(--ink-4);
+}
+
+.depth.is-good .depth__value {
+  color: var(--green-600);
+}
+
+/* ---------- Ползунки ---------------------------------------------------- */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 26px;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: linear-gradient(90deg, var(--blue-100), var(--blue-100));
+  border: 1px solid var(--line-2);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: var(--blue-100);
+  border: 1px solid var(--line-2);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -8px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--blue-600);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);
+  transition: transform var(--t-fast);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--blue-600);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);
+}
+
+input[type="range"]:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+}
+
+input[type="range"]:focus-visible {
+  outline: 2px solid var(--blue-600);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+/* ---------- Кримпер ----------------------------------------------------- */
+.crimper {
+  position: relative;
+  width: 250px;
+  cursor: pointer;
+  transition: transform var(--t);
+  filter: drop-shadow(0 12px 18px rgba(15, 23, 42, 0.18));
+  touch-action: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.crimper__jaw-top,
+.crimper__jaw-bottom {
+  transition: transform 90ms linear;
+}
+
+.crimper.is-squeezing .crimper__jaw-top {
+  transform: translateY(11px) rotate(0.5deg);
+}
+
+.crimper.is-squeezing .crimper__jaw-bottom {
+  transform: translateY(-11px);
+}
+
+.crimper.is-done {
+  animation: crimper-done 520ms both;
+}
+
+@keyframes crimper-done {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(0.97) translateY(2px);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.force {
+  display: grid;
+  gap: 5px;
+  width: 220px;
+}
+
+.force__bar {
+  height: 9px;
+  border-radius: var(--r-pill);
+  background: var(--surface-3);
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+}
+
+.force__fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  transition: width 60ms linear;
+}
+
+.force__label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--ink-3);
+  font-weight: 600;
+}
+
+.force.is-over .force__fill {
+  background: linear-gradient(90deg, #f59e0b, #dc2626);
+}
+
+/* ---------- Тестер ------------------------------------------------------ */
+.tester {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+}
+
+.tester__row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.tester__unit {
+  position: relative;
+  flex: 1 1 240px;
+  max-width: 340px;
+  padding: 12px;
+  border-radius: var(--r-md);
+  background: linear-gradient(180deg, #334155, #1e293b);
+  border: 1px solid #0f172a;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 14px 24px -18px rgba(15, 23, 42, 0.9);
+  color: #e2e8f0;
+}
+
+.tester__unit-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 9px;
+}
+
+.tester__socket {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 10px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  font-size: 0.72rem;
+  color: #cbd5e1;
+}
+
+.tester__socket svg {
+  width: 26px;
+  height: 20px;
+  flex: 0 0 auto;
+}
+
+.tester__socket.is-plugged {
+  border-color: #22c55e;
+  color: #bbf7d0;
+  background: rgba(22, 101, 52, 0.38);
+}
+
+.leds {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.led {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+}
+
+.led__lamp {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #475569, #1e293b 70%);
+  border: 1px solid #0b1220;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.14);
+  transition: background-color var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
+}
+
+.led.is-on .led__lamp {
+  background: radial-gradient(circle at 35% 30%, #bbf7d0, #22c55e 55%, #15803d);
+  box-shadow: 0 0 10px 2px rgba(34, 197, 94, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  transform: scale(1.04);
+}
+
+.led.is-on--warn .led__lamp {
+  background: radial-gradient(circle at 35% 30%, #fde68a, #f59e0b 55%, #b45309);
+  box-shadow: 0 0 10px 2px rgba(245, 158, 11, 0.7);
+}
+
+.led.is-on--bad .led__lamp {
+  background: radial-gradient(circle at 35% 30%, #fecaca, #ef4444 55%, #b91c1c);
+  box-shadow: 0 0 10px 2px rgba(239, 68, 68, 0.65);
+}
+
+.led__num {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: #94a3b8;
+}
+
+.tester__pair {
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: #94a3b8;
+  min-height: 1.1em;
+}
+
+.tester__result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: var(--r-md);
+  font-size: 0.84rem;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.tester__result--ok {
+  background: var(--green-50);
+  border-color: #bbf7d0;
+  color: var(--green-600);
+}
+
+.tester__result--bad {
+  background: var(--red-50);
+  border-color: #fecaca;
+  color: #991b1b;
+}
+
+/* Подключение к ПК и роутеру */
+.link-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.device {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+.device__port {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  border: 1px solid #94a3b8;
+  transition: background-color var(--t), box-shadow var(--t);
+}
+
+.device__port.is-on {
+  background: #22c55e;
+  box-shadow: 0 0 8px 2px rgba(34, 197, 94, 0.6);
+  border-color: #15803d;
+}
+
+.device svg {
+  width: 64px;
+  height: 48px;
+}
+
+.link-line {
+  flex: 1 1 60px;
+  max-width: 160px;
+  height: 4px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(90deg, var(--line-2) 0 6px, transparent 6px 11px);
+}
+
+.link-line.is-on {
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+}
+
+/* ---------- Осмотр коннектора (лупа) ----------------------------------- */
+.inspect {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+.inspect__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--ink-2);
+}
+
+.inspect__icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.inspect__icon--ok {
+  background: var(--green);
+}
+
+.inspect__icon--warn {
+  background: var(--amber);
+}
+
+.inspect__icon--bad {
+  background: var(--red);
+}
+
+/* ---------- Отчёт ------------------------------------------------------- */
+.report {
+  display: grid;
+  gap: 12px;
+}
+
+.report__head {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.report__title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.report__meta {
+  font-size: 0.78rem;
+  color: var(--ink-3);
+}
+
+.report__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.report__table th,
+.report__table td {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.report__table th {
+  background: var(--surface-2);
+  font-weight: 650;
+  color: var(--ink-2);
+  width: 42%;
+}
+
+.report__table td {
+  color: var(--ink);
+}
+
+.report__score {
+  display: grid;
+  grid-template-columns: 128px minmax(0, 1fr);
+  gap: 16px;
+  padding: 14px;
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, #eff6ff, #ecfeff);
+  border: 1px solid var(--blue-100);
+  align-items: center;
+}
+
+.ring {
+  position: relative;
+  width: 128px;
+  height: 128px;
+}
+
+.ring svg {
+  transform: rotate(-90deg);
+}
+
+.ring__track {
+  fill: none;
+  stroke: #dbeafe;
+  stroke-width: 11;
+}
+
+.ring__value {
+  fill: none;
+  stroke: url(#ringGrad);
+  stroke-width: 11;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ring__center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+
+.ring__num {
+  font-size: 1.75rem;
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.ring__of {
+  font-size: 0.7rem;
+  color: var(--ink-3);
+}
+
+.report__grade {
+  font-size: 1.1rem;
+  font-weight: 750;
+}
+
+.report__grade span {
+  color: var(--ink-3);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.score-list {
+  display: grid;
+  gap: 7px;
+  font-size: 0.82rem;
+}
+
+.score-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.score-row__bar {
+  grid-column: 1 / -1;
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: #dbeafe;
+  overflow: hidden;
+}
+
+.score-row__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--blue), #06b6d4);
+  transition: width 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.score-row__val {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.report__comment {
+  display: grid;
+  gap: 6px;
+}
+
+.report__comment label {
+  font-size: 0.8rem;
+  font-weight: 650;
+  color: var(--ink-2);
+}
+
+textarea {
+  width: 100%;
+  min-height: 76px;
+  padding: 9px 11px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  font-size: 0.85rem;
+  resize: vertical;
+  transition: border-color var(--t), box-shadow var(--t);
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: var(--ring);
+}
+
+input[type="text"] {
+  width: 100%;
+  min-height: 36px;
+  padding: 7px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  font-size: 0.85rem;
+  transition: border-color var(--t), box-shadow var(--t);
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: var(--ring);
+}
+
+/* ---------- Мини-тест -------------------------------------------------- */
+.quiz {
+  display: grid;
+  gap: 12px;
+}
+
+.quiz__q {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+.quiz__q.is-wrong {
+  border-color: #fecaca;
+  background: var(--red-50);
+}
+
+.quiz__q.is-right {
+  border-color: #bbf7d0;
+  background: var(--green-50);
+}
+
+.quiz__text {
+  font-size: 0.86rem;
+  font-weight: 650;
+  margin-bottom: 8px;
+}
+
+.quiz__options {
+  display: grid;
+  gap: 6px;
+}
+
+.quiz__opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  font-size: 0.83rem;
+  cursor: pointer;
+  transition: border-color var(--t), background-color var(--t);
+}
+
+.quiz__opt:hover {
+  border-color: var(--blue-100);
+  background: var(--blue-50);
+}
+
+.quiz__opt input {
+  margin: 3px 0 0;
+  accent-color: var(--blue-600);
+  flex: 0 0 auto;
+}
+
+.quiz__opt.is-picked {
+  border-color: var(--blue);
+  background: var(--blue-50);
+}
+
+.quiz__opt.is-correct {
+  border-color: var(--green);
+  background: var(--green-50);
+}
+
+.quiz__opt.is-incorrect {
+  border-color: var(--red);
+  background: var(--red-50);
+}
+
+.quiz__feedback {
+  margin-top: 7px;
+  font-size: 0.78rem;
+  color: var(--ink-3);
+}
+
+/* ---------- Действия шага ---------------------------------------------- */
+.stage-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 11px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.stage-actions__main {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stage-actions__hint {
+  font-size: 0.78rem;
+  color: var(--ink-3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---------- Шаги: видимость -------------------------------------------- */
+.step-panel[hidden] {
+  display: none;
+}
+
+.step-panel {
+  animation: step-in var(--t-slow) both;
+}
+
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Таблица пропускной способности и прочее -------------------- */
+.mini-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+.mini-table th,
+.mini-table td {
+  padding: 5px 7px;
+  border: 1px solid var(--line);
+  text-align: left;
+}
+
+.mini-table th {
+  background: var(--surface-2);
+  font-weight: 650;
+  color: var(--ink-2);
+}
+
+.abbr {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 650;
+  color: var(--blue-700);
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+  border-radius: 4px;
+  padding: 0 4px;
+  white-space: nowrap;
+}
+
+@media (max-width: 620px) {
+  .bench {
+    min-height: 320px;
+    padding: 12px;
+  }
+
+  .stage__head {
+    flex-wrap: wrap;
+    padding: 12px;
+  }
+
+  .stage__head-right {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .step-progress {
+    width: 100%;
+    text-align: left;
+  }
+
+  .tray {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .slot {
+    min-height: 74px;
+  }
+
+  .bundle__label {
+    width: 100%;
+  }
+
+  .bundle {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .crimper {
+    width: 210px;
+  }
+
+  .stage-actions {
+    padding: 10px 12px;
+  }
+
+  .stage-actions__main {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .stage-actions__main .btn {
+    flex: 1 1 auto;
+  }
+
+  .report__score {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+  }
+
+  .report__table th {
+    width: 46%;
+  }
+}
+
+/* ==========================================================================
+   Сцены верстака: перенос кабеля в стриппер, зачистка, вставка, обжим
+   ========================================================================== */
+
+/* ---------- Стартовая сцена шага 1 ------------------------------------- */
+.bench-intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 3vw, 34px);
+  flex-wrap: wrap;
+  min-height: 280px;
+  padding: 30px 0 10px;
+}
+
+.cable-piece {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  width: 178px;
+  padding: 16px 12px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--sh-1);
+  cursor: grab;
+  transition: box-shadow var(--t), border-color var(--t), transform var(--t-fast);
+}
+
+.cable-piece:hover {
+  border-color: var(--blue-100);
+  box-shadow: var(--sh-2);
+}
+
+.cable-piece:active {
+  cursor: grabbing;
+}
+
+.cable-piece.is-picked {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.16);
+  transform: translateY(-2px);
+}
+
+.cable-piece__art {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 62px;
+  width: 100%;
+  justify-content: center;
+}
+
+.cable-piece__jacket {
+  width: 74px;
+  height: 34px;
+  border-radius: 6px 2px 2px 6px;
+  background: linear-gradient(180deg, #22a7c4, #0e7490 48%, #0b5f78);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), 0 4px 10px -6px rgba(15, 23, 42, 0.7);
+}
+
+.cable-piece__wires {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 50px;
+}
+
+.cable-piece__wires .wire {
+  width: 4px;
+  height: 100%;
+}
+
+.cable-piece__label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.cable-piece__hint {
+  font-size: 0.7rem;
+  color: var(--ink-4);
+  text-align: center;
+  line-height: 1.25;
+}
+
+.bench-intro__arrow {
+  font-size: 1.4rem;
+  color: var(--ink-4);
+  user-select: none;
+}
+
+.bench-tool {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  min-width: 240px;
+  padding: 12px 10px;
+  cursor: pointer;
+}
+
+.bench-tool .stripper {
+  width: 180px;
+}
+
+.bench-tool__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+.bench-tool.is-picked-target {
+  border-color: var(--blue);
+  background: var(--blue-50);
+}
+
+/* ---------- Сцена зачистки --------------------------------------------- */
+.strip-work {
+  display: grid;
+  gap: 10px;
+  padding: 26px 14px 4px;
+  max-width: 690px;
+  margin: 0 auto;
+}
+
+.strip-readout {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  justify-content: center;
+  font-size: 0.82rem;
+  color: var(--ink-3);
+}
+
+.strip-readout__value {
+  font-family: var(--mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--blue-700);
+  transition: color var(--t);
+}
+
+.strip-readout.is-ok .strip-readout__value {
+  color: var(--green-600);
+}
+
+.strip-readout.is-bad .strip-readout__value {
+  color: var(--red);
+}
+
+.strip-work__grid {
+  display: grid;
+  grid-template-columns: 36% minmax(0, 1fr);
+  height: 96px;
+}
+
+.strip-work__fixed {
+  position: relative;
+  background: linear-gradient(180deg, #22a7c4, #0e7490 46%, #0b5f78);
+  border-radius: 9px 0 0 9px;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.26), inset 0 -5px 9px rgba(0, 0, 0, 0.24);
+  z-index: 2;
+}
+
+.strip-work__zone {
+  position: relative;
+}
+
+.strip-work__clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 0 9px 9px 0;
+}
+
+.strip-work__exposed {
+  position: absolute;
+  top: 22px;
+  bottom: 22px;
+  right: 0;
+  left: auto;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  justify-content: flex-end;
+  padding-right: 2px;
+}
+
+.strip-work__exposed .wire {
+  flex: 1 1 0;
+  max-width: 11px;
+  height: 100%;
+  --wire-dir: 180deg;
+}
+
+.strip-work__jacket {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(180deg, #22a7c4, #0e7490 46%, #0b5f78);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.26), inset 0 -5px 9px rgba(0, 0, 0, 0.24);
+  transition: width 60ms linear;
+}
+
+.strip-grip {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  display: grid;
+  place-items: center;
+  gap: 2px;
+  width: 22px;
+  height: 62px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #fbbf24, #d97706);
+  box-shadow: 0 4px 10px -4px rgba(15, 23, 42, 0.7);
+  transform: translate(-50%, -50%);
+  cursor: ew-resize;
+  touch-action: none;
+  transition: transform 60ms linear, box-shadow var(--t);
+  z-index: 4;
+}
+
+.strip-grip::before,
+.strip-grip::after {
+  content: "";
+  width: 9px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.strip-grip:hover,
+.strip-grip:focus-visible {
+  box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.25), 0 4px 10px -4px rgba(15, 23, 42, 0.7);
+}
+
+.strip-grip.is-dragging {
+  cursor: grabbing;
+}
+
+.strip-work__rules {
+  display: grid;
+  grid-template-columns: 36% minmax(0, 1fr);
+}
+
+.ruler--strip {
+  width: 100%;
+  margin: 0;
+}
+
+
+
+/* ---------- Вставка в коннектор --------------------------------------- */
+.insert-scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 3vw, 34px);
+  flex-wrap: wrap;
+  padding: 18px 0 6px;
+  min-height: 260px;
+}
+
+.insert-bundle {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 10px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--sh-1);
+  cursor: grab;
+  transition: box-shadow var(--t), border-color var(--t);
+}
+
+.insert-bundle:hover {
+  box-shadow: var(--sh-2);
+}
+
+.insert-bundle__jacket {
+  width: 108px;
+  height: 30px;
+  border-radius: 6px 3px 3px 6px;
+  background: linear-gradient(180deg, #22a7c4, #0e7490 48%, #0b5f78);
+}
+
+.insert-bundle__wires {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 68px;
+}
+
+.insert-bundle__wires .wire {
+  width: 7px;
+  transition: height var(--t-slow);
+}
+
+.insert-bundle__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+.insert-arrow {
+  color: var(--ink-4);
+  font-size: 1.2rem;
+}
+
+.rj-drop {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  padding: 8px;
+  border-radius: var(--r-md);
+  border: 2px dashed transparent;
+  transition: border-color var(--t), background-color var(--t);
+}
+
+.rj-drop.is-over {
+  border-color: var(--blue);
+  background: var(--blue-50);
+}
+
+.insert-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 4px 0 10px;
+}
+
+/* ---------- Сцена обжима ----------------------------------------------- */
+.crimp-scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 3vw, 30px);
+  flex-wrap: wrap;
+  padding: 12px 0;
+  min-height: 300px;
+}
+
+.crimp-hold {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.crimp-hold .crimper {
+  pointer-events: none;
+}
+
+.crimp-hint {
+  font-size: 0.76rem;
+  color: var(--ink-3);
+  text-align: center;
+  max-width: 240px;
+}
+
+/* ---------- Итоговые панели шага --------------------------------------- */
+.summary {
+  display: grid;
+  gap: 8px;
+}
+
+.summary__row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.83rem;
+  color: var(--ink-2);
+}
+
+.summary__row b {
+  color: var(--ink);
+}
+
+.summary__chip {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: var(--green);
+}
+
+.summary__chip--warn {
+  background: var(--amber);
+}
+
+
+
+@media (max-width: 620px) {
+  .strip-work {
+    padding-top: 18px;
+  }
+
+  .strip-work__grid {
+    grid-template-columns: 34% minmax(0, 1fr);
+    height: 84px;
+  }
+
+  .strip-work__rules {
+    grid-template-columns: 34% minmax(0, 1fr);
+  }
+
+  .bench-intro {
+    min-height: 220px;
+    padding-top: 16px;
+  }
+
+  .bench-intro__arrow {
+    transform: rotate(90deg);
+  }
+
+  .bench-tool {
+    min-width: 200px;
+  }
+
+  .bench-tool .stripper {
+    width: 150px;
+  }
+
+  .insert-bundle__jacket {
+    width: 76px;
+  }
+
+  .insert-bundle__wires {
+    height: 56px;
+  }
+
+  .rj {
+    width: min(320px, 82vw);
+  }
+
+  .crimp-scene {
+    min-height: 250px;
+  }
+}
+
+
+/* ---------- Мини-схема в вариантах теста ------------------------------- */
+.mini-scheme {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 6px;
+}
+
+.mini-scheme__end {
+  display: flex;
+  padding: 3px;
+  border: 1px solid var(--line-2);
+  border-radius: 5px;
+  background: #fff;
+}
+
+.mini-scheme__wires {
+  display: flex;
+  gap: 2px;
+}
+
+.mini-scheme__wires .wire {
+  width: 4px;
+  height: 26px;
+}
+
+.mini-scheme__link {
+  color: var(--ink-4);
+  font-size: 0.8rem;
+}
+
+.stage__title:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+/* ---------- Печать отчёта: показываем всё содержимое ------------------- */
+@media print {
+  .bench {
+    background: #fff !important;
+    border: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+
+  .report__score {
+    background: #fff !important;
+    border: 1px solid #ccc !important;
+  }
+
+  .quiz__q {
+    break-inside: avoid;
+    border: 1px solid #ddd !important;
+    background: #fff !important;
+  }
+
+  .score-row__bar,
+  .ring {
+    display: none !important;
+  }
+}
+
+@keyframes strip-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(2px); }
+}
+
+.strip-readout.is-shake {
+  animation: strip-shake 420ms both;
+}
+
+.strip-readout.is-bad .strip-readout__value {
+  text-decoration: underline wavy rgba(220, 38, 38, 0.55);
+  text-underline-offset: 4px;
+}
+
+/* Светодиод без сигнала: лампа не горит, но место отказа видно */
+.led.is-open .led__lamp {
+  border-color: #ef4444;
+  box-shadow: inset 0 0 0 2px rgba(239, 68, 68, 0.25);
+}
+
+.led.is-open .led__num {
+  color: #fca5a5;
+}
+
+/* Оболочка «съезжает» после успешной зачистки */
+.strip-work.is-done-anim .strip-work__jacket {
+  animation: jacket-off 320ms cubic-bezier(0.3, 0.7, 0.3, 1) forwards;
+}
+
+.strip-work.is-done-anim .strip-grip {
+  animation: grip-pop 320ms ease-out forwards;
+}
+
+@keyframes jacket-off {
+  to {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+}
+
+@keyframes grip-pop {
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+}

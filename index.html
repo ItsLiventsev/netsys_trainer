@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f8f9fa">
+  <meta name="description" content="Интерактивный симулятор лабораторной работы «Обжим витой пары»: прямой обжим по T568B, коннектор RJ-45, кримпер и кабельный тестер.">
+  <!-- Разрешаем встраивание в iframe МЭШ и запрещаем внешние запросы.
+       При размещении на своём домене добавьте его в frame-ancestors. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' https://school.mos.ru https://*.mos.ru https://*.mos.ru:443">
+  <title>Обжим витой пары — интерактивный тренажёр · T568B</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="src/styles/base.css">
+  <link rel="stylesheet" href="src/styles/layout.css">
+  <link rel="stylesheet" href="src/styles/stage.css">
+</head>
+<body>
+  <a class="skip-link" href="#stage-root">Перейти к рабочей зоне</a>
+
+  <header class="app-header">
+    <div class="app-header__inner">
+      <div class="brand">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12h4.5c2 0 2-4 4-4s2 4 4 4 2-4 4-4H21"></path>
+            <circle cx="3.4" cy="12" r="1.1" fill="#ffffff" stroke="none"></circle>
+            <circle cx="20.6" cy="8" r="1.1" fill="#ffffff" stroke="none"></circle>
+          </svg>
+        </span>
+        <span class="brand__text">
+          <span class="brand__title">Обжим витой пары</span>
+          <span class="brand__sub">Прямой обжим · T568B · сетевые технологии</span>
+        </span>
+      </div>
+
+      <div class="header-actions">
+        <span class="chip chip--blue" id="score-chip" title="Текущий результат">
+          <span class="chip__dot" aria-hidden="true"></span>
+          <span id="score-chip-text" class="mono">0 / 100</span>
+        </span>
+        <button type="button" class="btn btn--sm" id="mode-btn" aria-pressed="false" title="Переключить режим сборки">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h6l3 5-3 5H4M20 7h-6l-3 5 3 5h6"></path></svg>
+          <span id="mode-label">Тренировка</span>
+        </button>
+        <button type="button" class="btn btn--sm" id="hint-btn" aria-expanded="false" aria-controls="hint-panel">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.8V16h7v-2.2A6 6 0 0 0 12 3z"></path></svg>
+          <span class="btn__label-lg">Подсказка</span>
+          <span class="btn__label-sm">Схема</span>
+        </button>
+        <button type="button" class="btn btn--sm btn--icon" id="reset-btn" title="Сбросить работу" aria-label="Сбросить работу">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v5h5"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="stepper" aria-label="Этапы работы">
+    <div class="stepper__list" id="stepper"><!-- заполняется из JS --></div>
+  </nav>
+
+  <div class="mobile-tabs" role="tablist" aria-label="Разделы" id="mobile-tabs">
+    <button type="button" class="mobile-tabs__btn" role="tab" data-pane="tools" aria-selected="false" aria-controls="pane-tools">Инструменты</button>
+    <button type="button" class="mobile-tabs__btn" role="tab" data-pane="stage" aria-selected="true" aria-controls="stage-root">Работа</button>
+    <button type="button" class="mobile-tabs__btn" role="tab" data-pane="info" aria-selected="false" aria-controls="pane-info">Теория</button>
+  </div>
+
+  <main class="layout" id="main">
+    <!-- ЛЕВАЯ КОЛОНКА: инструменты и подсказка -->
+    <aside class="panel panel--tools" id="pane-tools" data-mobile-pane="tools" aria-label="Инструменты">
+      <div class="panel__head">
+        <span class="panel__title">Инструменты</span>
+        <span class="panel__hint">нажмите</span>
+      </div>
+      <div class="panel__body">
+        <div class="tool-grid" id="tool-grid"><!-- JS --></div>
+        <div class="tool-tip" id="tool-tip">
+          <span class="tool-tip__title">Выберите инструмент</span>
+          Нажмите на иконку — появится карточка с описанием и назначением.
+        </div>
+
+        <div id="hint-panel" class="stack" style="margin-top:12px" hidden>
+          <div class="scheme scheme--wide" id="hint-scheme"><!-- JS --></div>
+          <p class="muted" style="font-size:0.76rem;margin:0">
+            Отсчёт контактов — слева направо, контактами к себе, защёлкой от себя.
+          </p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ЦЕНТРАЛЬНАЯ КОЛОНКА: рабочая зона -->
+    <section class="stage" id="stage-root" data-mobile-pane="stage" aria-label="Рабочая зона">
+      <!-- панели шагов рендерятся из JS -->
+    </section>
+
+    <!-- ПРАВАЯ КОЛОНКА: прогресс, чек-лист, теория -->
+    <aside class="panel panel--info" id="pane-info" data-mobile-pane="info" aria-label="Прогресс и теория">
+      <div class="panel__head">
+        <span class="panel__title">Ход работы</span>
+        <span class="badge" id="step-counter">1/7</span>
+      </div>
+      <div class="panel__body">
+        <div class="row row--between" style="margin-bottom:8px">
+          <span class="muted" style="font-size:0.78rem">Текущий результат</span>
+          <span class="mono" id="score-inline" style="font-weight:700">0 / 100</span>
+        </div>
+        <div class="step-progress__bar" aria-hidden="true"><div class="step-progress__fill" id="score-bar" style="width:0%"></div></div>
+
+        <div class="row row--between" style="margin:14px 0 8px">
+          <span class="panel__title">Чек-лист</span>
+          <span class="panel__hint" id="checklist-ends">A / B</span>
+        </div>
+        <ul class="checklist" id="checklist"><!-- JS --></ul>
+
+        <div class="row row--between" style="margin:16px 0 8px">
+          <span class="panel__title">Теория</span>
+          <span class="panel__hint">по слайдам</span>
+        </div>
+        <div id="theory"><!-- JS --></div>
+
+        <div class="note note--blue" style="margin-top:12px">
+          <svg class="note__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5.5M12 7.6v.6"></path></svg>
+          <span>Прогресс сохраняется в этом браузере. Итоговая оценка отправляется в МЭШ через <code>postMessage</code>.</span>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <div class="toasts" id="toasts" role="status" aria-live="polite" aria-atomic="false"></div>
+  <div id="sr-status" class="sr-only" role="status" aria-live="polite"></div>
+  <div id="modal-root"></div>
+
+  <noscript>
+    <div class="note" style="margin:16px">
+      <span>Для работы симулятора нужен JavaScript. Включите его в настройках браузера.</span>
+    </div>
+  </noscript>
+
+  <script src="src/js/data.js"></script>
+  <script src="src/js/graphics.js"></script>
+  <script src="src/js/state.js"></script>
+  <script src="src/js/drag.js"></script>
+  <script src="src/js/ui.js"></script>
+  <script src="src/js/steps.js"></script>
+  <script src="src/js/report.js"></script>
+  <script src="src/js/app.js"></script>
+</body>
+</html>
