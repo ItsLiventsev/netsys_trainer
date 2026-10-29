@@ -61,7 +61,9 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, HOST, () => {
-  console.log('Обжим витой пары — тренажёр запущен');
-  console.log('  http://localhost:' + PORT + '/');
+  console.log('netsys_trainer — тренажёры запущены');
+  console.log('  витрина:  http://localhost:' + PORT + '/');
+  console.log('  обжим:    http://localhost:' + PORT + '/simulators/twisted-pair/');
+  console.log('  розетки:  http://localhost:' + PORT + '/simulators/network-socket/');
   console.log('  корень: ' + ROOT);
 });
