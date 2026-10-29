@@ -1,0 +1,430 @@
+/* ==========================================================================
+   report.css — отчёт, мини-тест и кольцо оценки. Общий модуль для тренажёров.
+   ========================================================================== */
+
+/* ---------- Отчёт ------------------------------------------------------- */
+.report {
+  display: grid;
+  gap: 12px;
+}
+
+.report__head {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.report__title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.report__meta {
+  font-size: 0.78rem;
+  color: var(--ink-3);
+}
+
+.report__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.report__table th,
+.report__table td {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.report__table th {
+  background: var(--surface-2);
+  font-weight: 650;
+  color: var(--ink-2);
+  width: 42%;
+}
+
+.report__table td {
+  color: var(--ink);
+}
+
+.report__score {
+  display: grid;
+  grid-template-columns: 128px minmax(0, 1fr);
+  gap: 16px;
+  padding: 14px;
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, #eff6ff, #ecfeff);
+  border: 1px solid var(--blue-100);
+  align-items: center;
+}
+
+.ring {
+  position: relative;
+  width: 128px;
+  height: 128px;
+}
+
+.ring svg {
+  transform: rotate(-90deg);
+}
+
+.ring__track {
+  fill: none;
+  stroke: #dbeafe;
+  stroke-width: 11;
+}
+
+.ring__value {
+  fill: none;
+  stroke: url(#ringGrad);
+  stroke-width: 11;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ring__center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+
+.ring__num {
+  font-size: 1.75rem;
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.ring__of {
+  font-size: 0.7rem;
+  color: var(--ink-3);
+}
+
+.report__grade {
+  font-size: 1.1rem;
+  font-weight: 750;
+}
+
+.report__grade span {
+  color: var(--ink-3);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.score-list {
+  display: grid;
+  gap: 7px;
+  font-size: 0.82rem;
+}
+
+.score-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.score-row__bar {
+  grid-column: 1 / -1;
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: #dbeafe;
+  overflow: hidden;
+}
+
+.score-row__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--blue), #06b6d4);
+  transition: width 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.score-row__val {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.report__comment {
+  display: grid;
+  gap: 6px;
+}
+
+.report__comment label {
+  font-size: 0.8rem;
+  font-weight: 650;
+  color: var(--ink-2);
+}
+
+textarea {
+  width: 100%;
+  min-height: 76px;
+  padding: 9px 11px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  font-size: 0.85rem;
+  resize: vertical;
+  transition: border-color var(--t), box-shadow var(--t);
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: var(--ring);
+}
+
+input[type="text"] {
+  width: 100%;
+  min-height: 36px;
+  padding: 7px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  font-size: 0.85rem;
+  transition: border-color var(--t), box-shadow var(--t);
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: var(--ring);
+}
+
+/* ---------- Мини-тест -------------------------------------------------- */
+.quiz {
+  display: grid;
+  gap: 12px;
+}
+
+.quiz__q {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+.quiz__q.is-wrong {
+  border-color: #fecaca;
+  background: var(--red-50);
+}
+
+.quiz__q.is-right {
+  border-color: #bbf7d0;
+  background: var(--green-50);
+}
+
+.quiz__text {
+  font-size: 0.86rem;
+  font-weight: 650;
+  margin-bottom: 8px;
+}
+
+.quiz__options {
+  display: grid;
+  gap: 6px;
+}
+
+.quiz__opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  font-size: 0.83rem;
+  cursor: pointer;
+  transition: border-color var(--t), background-color var(--t);
+}
+
+.quiz__opt:hover {
+  border-color: var(--blue-100);
+  background: var(--blue-50);
+}
+
+.quiz__opt input {
+  margin: 3px 0 0;
+  accent-color: var(--blue-600);
+  flex: 0 0 auto;
+}
+
+.quiz__opt.is-picked {
+  border-color: var(--blue);
+  background: var(--blue-50);
+}
+
+.quiz__opt.is-correct {
+  border-color: var(--green);
+  background: var(--green-50);
+}
+
+.quiz__opt.is-incorrect {
+  border-color: var(--red);
+  background: var(--red-50);
+}
+
+.quiz__feedback {
+  margin-top: 7px;
+  font-size: 0.78rem;
+  color: var(--ink-3);
+}
+
+/* ---------- Мини-схема в вариантах теста ------------------------------- */
+.mini-scheme {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 6px;
+}
+
+.mini-scheme__end {
+  display: flex;
+  padding: 3px;
+  border: 1px solid var(--line-2);
+  border-radius: 5px;
+  background: #fff;
+}
+
+.mini-scheme__wires {
+  display: flex;
+  gap: 2px;
+}
+
+.mini-scheme__wires .wire {
+  width: 4px;
+  height: 26px;
+}
+
+.mini-scheme__link {
+  color: var(--ink-4);
+  font-size: 0.8rem;
+}
+
+.stage__title:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+@media (max-width: 620px) {
+  .report__score {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+  }
+
+  .report__table th {
+    width: 46%;
+  }
+}
+
+/* ---------- Печать отчёта: показываем всё содержимое ------------------- */
+@media print {
+  .bench {
+    background: #fff !important;
+    border: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+
+  .report__score {
+    background: #fff !important;
+    border: 1px solid #ccc !important;
+  }
+
+  .quiz__q {
+    break-inside: avoid;
+    border: 1px solid #ddd !important;
+    background: #fff !important;
+  }
+
+  .score-row__bar,
+  .ring {
+    display: none !important;
+  }
+}
+
+@keyframes strip-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(2px); }
+}
+
+.strip-readout.is-shake {
+  animation: strip-shake 420ms both;
+}
+
+.strip-readout.is-bad .strip-readout__value {
+  text-decoration: underline wavy rgba(220, 38, 38, 0.55);
+  text-underline-offset: 4px;
+}
+
+/* Светодиод без сигнала: лампа не горит, но место отказа видно */
+.led.is-open .led__lamp {
+  border-color: #ef4444;
+  box-shadow: inset 0 0 0 2px rgba(239, 68, 68, 0.25);
+}
+
+.led.is-open .led__num {
+  color: #fca5a5;
+}
+
+/* Оболочка «съезжает» после успешной зачистки */
+.strip-work.is-done-anim .strip-work__jacket {
+  animation: jacket-off 320ms cubic-bezier(0.3, 0.7, 0.3, 1) forwards;
+}
+
+.strip-work.is-done-anim .strip-grip {
+  animation: grip-pop 320ms ease-out forwards;
+}
+
+@keyframes jacket-off {
+  to {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+}
+
+@keyframes grip-pop {
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+}
+
+@media (max-width: 620px) {
+  .tray {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .slot {
+    min-height: 74px;
+  }
+
+  .bundle__label {
+    width: 100%;
+  }
+
+  .bundle {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .crimper {
+    width: 210px;
+  }
+}
+

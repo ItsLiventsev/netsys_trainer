@@ -278,7 +278,7 @@
       total += parts[k].value;
     });
     total = Math.round(total);
-    return { total: Math.min(100, Math.max(0, total)), parts: parts, grade: gradeFor(total) };
+    return { total: Math.min(100, Math.max(0, total)), max: 100, parts: parts, grade: gradeFor(total) };
   }
 
   /* ---------- Сообщение для МЭШ ------------------------------------------ */

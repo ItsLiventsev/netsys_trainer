@@ -8,7 +8,7 @@
   const D = global.APP_DATA;
   const G = global.APP_GFX;
   const S = global.AppState;
-  const U = global.AppUI;
+  const U = global.AppCore;
   const Drag = global.AppDrag;
   const $ = U.$;
   const $$ = U.$$;
@@ -169,7 +169,7 @@
       b.addEventListener('click', () => global.App.go(Math.max(1, s.step - 1)));
     });
     $$('[data-act="hint"]', root).forEach((b) => {
-      b.addEventListener('click', () => U.setHint(true));
+      b.addEventListener('click', () => global.Shell.setHint(true));
     });
   }
 
@@ -1533,11 +1533,29 @@
     fx.bounceSlot = null;
   }
 
+  /* ---------- Состояния чек-листа для каждого конца ---------------------- */
+  function itemStates(s, which) {
+    const e = s.ends[which];
+    const sorted = e.order.every(Boolean);
+    const res = s.tester.result;
+    return {
+      strip: e.strip.done ? 'done' : 'active',
+      sort: sorted ? 'done' : e.strip.done ? 'active' : 'todo',
+      trim: e.trimmed ? 'done' : sorted ? 'active' : 'todo',
+      insert: e.inserted && e.depth >= D.SETTINGS.depthGood ? 'done' : e.inserted ? 'active' : 'todo',
+      clamp: e.checks.jacketClamp ? 'done' : e.inserted ? 'active' : 'todo',
+      crimp: e.crimped && e.force >= D.SETTINGS.crimpWarn ? 'done' : e.crimped ? 'active' : 'todo',
+      test: s.tester.tested ? (res && res.ok ? 'done' : 'error') : 'todo'
+    };
+  }
+
   global.AppSteps = {
     render,
     mount,
     canAdvance,
+    canAdvanceStage,
     computeTest,
-    contactStatus
+    contactStatus,
+    itemStates
   };
 })(window);
