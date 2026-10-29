@@ -15,24 +15,51 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Сначала тесты: если тренажёры сломаны, сайт не публикуется.
+  test:
+    name: Тесты тренажёров
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Установить зависимости
+        run: npm ci --no-audit --no-fund
+
+      - name: Прогнать тесты
+        run: npm test
+
   deploy:
+    name: Публикация на GitHub Pages
+    needs: test
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/configure-pages@v5
-
-      - name: Run smoke test
+      # Понятная ошибка вместо «Get Pages site failed» из configure-pages.
+      - name: Проверить, что Pages включён
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          npm install --no-audit --no-fund
-          npm test
+          if gh api "repos/${GITHUB_REPOSITORY}/pages" >/dev/null 2>&1; then
+            echo "Pages включён — продолжаем."
+            exit 0
+          fi
+          echo "::error title=GitHub Pages не включён::Откройте Settings → Pages → Build and deployment → Source = «GitHub Actions» → Save, затем перезапустите этот workflow (Re-run all jobs)."
+          exit 1
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: .
 
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
