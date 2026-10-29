@@ -10,12 +10,19 @@ const { JSDOM } = require('jsdom');
 
 const ROOT = path.resolve(__dirname, '..');
 
-const SHARED = ['shared/js/core.js', 'shared/js/icons.js', 'shared/js/shell.js', 'shared/js/report.js'];
-
+/*
+ * Общие файлы лежат внутри каждой лаборатории (js/vendor, css/*), поэтому тест
+ * поднимает страницу ровно так, как её увидит пользователь после скачивания
+ * папки: никаких обращений к shared/ снаружи.
+ */
 const SIMULATORS = {
   'twisted-pair': {
     dir: 'simulators/twisted-pair',
     scripts: [
+      'simulators/twisted-pair/js/vendor/core.js',
+      'simulators/twisted-pair/js/vendor/icons.js',
+      'simulators/twisted-pair/js/vendor/shell.js',
+      'simulators/twisted-pair/js/vendor/report.js',
       'simulators/twisted-pair/js/data.js',
       'simulators/twisted-pair/js/graphics.js',
       'simulators/twisted-pair/js/state.js',
@@ -27,6 +34,10 @@ const SIMULATORS = {
   'network-socket': {
     dir: 'simulators/network-socket',
     scripts: [
+      'simulators/network-socket/js/vendor/core.js',
+      'simulators/network-socket/js/vendor/icons.js',
+      'simulators/network-socket/js/vendor/shell.js',
+      'simulators/network-socket/js/vendor/report.js',
       'simulators/network-socket/js/data.js',
       'simulators/network-socket/js/graphics.js',
       'simulators/network-socket/js/state.js',
@@ -36,6 +47,20 @@ const SIMULATORS = {
     ]
   }
 };
+
+/** Все файлы внутри папки лаборатории (относительно корня репозитория). */
+function walk(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const full = path.join(dir, entry.name);
+    return entry.isDirectory() ? walk(full) : [full];
+  });
+}
+
+function labFiles(lab) {
+  return walk(path.join(ROOT, 'simulators', lab))
+    .map((file) => path.relative(ROOT, file).split(path.sep).join('/'))
+    .sort();
+}
 
 /**
  * bootSimulator('twisted-pair', { storage: '…', reducedMotion: false })
@@ -75,7 +100,7 @@ function bootSimulator(id, opts) {
   const errors = [];
   window.addEventListener('error', (e) => errors.push(e.message));
 
-  SHARED.concat(sim.scripts).forEach((rel) => {
+  sim.scripts.forEach((rel) => {
     const node = window.document.createElement('script');
     node.textContent = fs.readFileSync(path.join(ROOT, rel), 'utf8');
     window.document.body.appendChild(node);
@@ -101,4 +126,4 @@ function bootSimulator(id, opts) {
 
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
-module.exports = { ROOT, SHARED, SIMULATORS, bootSimulator, wait };
+module.exports = { ROOT, SIMULATORS, bootSimulator, labFiles, wait };

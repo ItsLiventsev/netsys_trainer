@@ -6,12 +6,12 @@
   <meta name="theme-color" content="#f8f9fa">
   <meta name="description" content="Интерактивный симулятор лабораторной работы «Обжим витой пары»: прямой обжим по T568B, коннектор RJ-45, кримпер и кабельный тестер.">
   <!-- Разрешаем встраивание в iframe МЭШ и запрещаем внешние запросы. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' https://school.mos.ru https://*.mos.ru">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; script-src 'self' file:; style-src 'self' file: 'unsafe-inline'; img-src 'self' file: data:; font-src 'self' file:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' https://school.mos.ru https://*.mos.ru">
   <title>Обжим витой пары — интерактивный тренажёр · T568B</title>
-  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../../shared/css/base.css">
-  <link rel="stylesheet" href="../../shared/css/components.css">
-  <link rel="stylesheet" href="../../shared/css/report.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/report.css">
   <link rel="stylesheet" href="css/sim.css">
 </head>
 <body>
@@ -28,7 +28,7 @@
           </svg>
         </span>
         <span class="brand__text">
-          <a class="brand__title" id="brand-title" href="../../index.html" title="Все тренажёры">Обжим витой пары</a>
+          <span class="brand__title" id="brand-title">Обжим витой пары</span>
           <span class="brand__sub" id="brand-sub">Прямой обжим · T568B · сетевые технологии</span>
         </span>
       </div>
@@ -127,10 +127,10 @@
     <div class="note" style="margin:16px"><span>Для работы симулятора нужен JavaScript.</span></div>
   </noscript>
 
-  <script src="../../shared/js/core.js"></script>
-  <script src="../../shared/js/icons.js"></script>
-  <script src="../../shared/js/shell.js"></script>
-  <script src="../../shared/js/report.js"></script>
+  <script src="js/vendor/core.js"></script>
+  <script src="js/vendor/icons.js"></script>
+  <script src="js/vendor/shell.js"></script>
+  <script src="js/vendor/report.js"></script>
   <script src="js/data.js"></script>
   <script src="js/graphics.js"></script>
   <script src="js/state.js"></script>

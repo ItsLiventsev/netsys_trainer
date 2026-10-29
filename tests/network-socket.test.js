@@ -8,7 +8,7 @@
 const assert = require('node:assert');
 const fs = require('node:fs');
 const path = require('node:path');
-const { ROOT, SHARED, bootSimulator, wait } = require('./helpers');
+const { ROOT, bootSimulator, labFiles, wait } = require('./helpers');
 
 const SIM = 'simulators/network-socket';
 
@@ -117,20 +117,7 @@ async function run() {
   /* 10. Нет ошибок и внешних запросов */
   assert.deepStrictEqual(errors, [], 'ошибки исполнения: ' + errors.join('; '));
 
-  const files = [
-    SIM + '/index.html',
-    'shared/css/base.css',
-    'shared/css/components.css',
-    'shared/css/report.css',
-    SIM + '/css/sim.css'
-  ].concat(SHARED, [
-    SIM + '/js/data.js',
-    SIM + '/js/graphics.js',
-    SIM + '/js/state.js',
-    SIM + '/js/steps.js',
-    SIM + '/js/report.js',
-    SIM + '/js/app.js'
-  ]);
+  const files = labFiles('network-socket');
   files.forEach((rel) => {
     const content = fs.readFileSync(path.join(ROOT, rel), 'utf8');
     const net = content.match(/(src|href)\s*=\s*["']https?:\/\//gi);
