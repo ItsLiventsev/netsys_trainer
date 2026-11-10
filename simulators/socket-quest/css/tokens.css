@@ -1,0 +1,193 @@
+/* ==========================================================================
+   tokens.css — токены оформления в стиле itsliventsev.github.io (v13 «Витрина»):
+   серая бумажная подложка, белые карточки с крупным радиусом, один глиняный
+   акцент, Golos Text в интерфейсе, JetBrains Mono в машинных метках.
+   Шрифты лежат рядом, в ../fonts (SIL OFL, см. файлы лицензий там же).
+   ========================================================================== */
+
+@font-face {
+  font-family: "Golos Text";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/golos-text-cyrillic-wght-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Golos Display";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/golos-text-cyrillic-wght-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("../fonts/jetbrains-mono-cyrillic-wght-normal.woff2") format("woff2");
+}
+
+:root {
+  color-scheme: light;
+
+  /* Поверхности и текст */
+  --u-paper: #efeee9;
+  --u-paper-deep: #e6e4dd;
+  --u-surface: #ffffff;
+  --u-surface-sunk: #f5f4f0;
+  --u-ink: #14130e;
+  --u-ink-2: #35332c;
+  --u-muted: #5d5a52;
+  --u-faint: #6f6c63;
+  --u-line: #e5e3dc;
+  --u-line-strong: #d2cfc6;
+  --u-inverse: #14130e;
+  --u-inverse-ink: #f8f7f2;
+  --u-inverse-accent: #ff9c73;
+  --u-inverse-ok: #8fd3a9;
+  --u-inverse-muted: #b0a996;
+
+  /* Один акцент — глина */
+  --u-accent: #a8391d;
+  --u-accent-hover: #872c14;
+  --u-accent-soft: #fbe7dc;
+  --u-accent-ink: #fff6f1;
+
+  /* Смысловые цвета */
+  --u-ok: #236a45;
+  --u-ok-soft: #e2f0e6;
+  --u-info: #23527c;
+  --u-info-soft: #e6eef6;
+  --u-warn: #7a5310;
+  --u-warn-soft: #f8edd5;
+  --u-danger: #983038;
+  --u-danger-soft: #f9e6e6;
+
+  /* Направления */
+  --u-net: #1c6568;
+  --u-net-soft: #ddeeea;
+  --u-office: #98520f;
+  --u-office-soft: #f9ecdc;
+
+  /* Шрифты */
+  --u-font-display: "Golos Display", "Golos Text", "PT Sans", "Trebuchet MS", sans-serif;
+  --u-font-ui: "Golos Text", "PT Sans", "Trebuchet MS", sans-serif;
+  --u-font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+
+  --u-fs-2xs: 0.6875rem;
+  --u-fs-xs: 0.75rem;
+  --u-fs-sm: 0.8125rem;
+  --u-fs-base: 0.9375rem;
+  --u-fs-read: 1.0625rem;
+  --u-fs-md: 1.125rem;
+  --u-fs-lg: 1.3125rem;
+  --u-fs-xl: 1.625rem;
+  --u-fs-2xl: 2rem;
+  --u-fs-3xl: 2.5rem;
+  --u-fs-4xl: 3.25rem;
+
+  --u-lh-tight: 1.06;
+  --u-lh-snug: 1.16;
+  --u-lh-ui: 1.5;
+  --u-lh-read: 1.66;
+
+  --u-ls-display: -0.028em;
+  --u-ls-ui: -0.008em;
+  --u-ls-mono: 0.08em;
+
+  /* Ритм */
+  --u-s1: 4px;
+  --u-s2: 8px;
+  --u-s3: 12px;
+  --u-s4: 16px;
+  --u-s5: 20px;
+  --u-s6: 24px;
+  --u-s7: 32px;
+  --u-s8: 40px;
+  --u-s9: 48px;
+  --u-s10: 64px;
+  --u-s11: 80px;
+
+  /* Геометрия */
+  --u-r-xs: 4px;
+  --u-r-sm: 10px;
+  --u-r-md: 14px;
+  --u-r-lg: 22px;
+  --u-r-xl: 28px;
+  --u-r-pill: 999px;
+  --u-card-pad: clamp(18px, 2.6vw, 30px);
+  --u-card-gap: 12px;
+
+  /* Тени */
+  --u-shadow-1: 0 1px 2px rgba(20, 19, 14, 0.06);
+  --u-shadow-2: 0 2px 6px rgba(20, 19, 14, 0.05), 0 18px 40px -28px rgba(20, 19, 14, 0.4);
+  --u-shadow-3: 0 30px 70px -30px rgba(20, 19, 14, 0.45);
+
+  /* Сетка */
+  --u-max: 1180px;
+  --u-max-read: 68ch;
+  --u-gutter: clamp(14px, 3.2vw, 36px);
+  --u-rail: 216px;
+  --u-masthead: 60px;
+
+  /* Движение */
+  --u-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --u-dur-1: 120ms;
+  --u-dur-2: 200ms;
+  --u-dur-3: 320ms;
+
+  --u-focus: 0 0 0 2px var(--u-paper), 0 0 0 4px var(--u-accent);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --u-paper: #121109;
+  --u-paper-deep: #0b0a06;
+  --u-surface: #1c1b14;
+  --u-surface-sunk: #24231a;
+  --u-ink: #f5f2e7;
+  --u-ink-2: #ddd8c9;
+  --u-muted: #b0a996;
+  --u-faint: #a29b88;
+  --u-line: #302d23;
+  --u-line-strong: #46412f;
+  --u-inverse: #f5f2e7;
+  --u-inverse-ink: #14130e;
+  --u-inverse-accent: #a8391d;
+  --u-inverse-ok: #236a45;
+  --u-inverse-muted: #5d5a52;
+  --u-accent: #ff9c73;
+  --u-accent-hover: #ffb897;
+  --u-accent-soft: #3b2419;
+  --u-accent-ink: #20130c;
+  --u-ok: #8fd3a9;
+  --u-ok-soft: #16301f;
+  --u-info: #a7c6e6;
+  --u-info-soft: #16232f;
+  --u-warn: #e4c079;
+  --u-warn-soft: #322710;
+  --u-danger: #f2a3a3;
+  --u-danger-soft: #3a1f1f;
+  --u-net: #7ed5d0;
+  --u-net-soft: #12282a;
+  --u-office: #f0b478;
+  --u-office-soft: #332518;
+  --u-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --u-shadow-2: 0 2px 6px rgba(0, 0, 0, 0.4), 0 20px 44px -28px rgba(0, 0, 0, 0.9);
+  --u-shadow-3: 0 30px 70px -30px rgba(0, 0, 0, 0.9);
+  --u-focus: 0 0 0 2px var(--u-paper), 0 0 0 4px var(--u-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

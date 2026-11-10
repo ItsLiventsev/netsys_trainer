@@ -16,8 +16,40 @@ const { JSDOM, VirtualConsole } = require('jsdom');
 const { ROOT } = require('./helpers');
 
 const LABS = [
-  { id: 'twisted-pair', firstStep: /Подготовка кабеля|Инструменты/ },
-  { id: 'network-socket', firstStep: /Инструменты/ }
+  {
+    id: 'twisted-pair',
+    minSheets: 4,
+    check: (doc, qa, window, lab) => {
+      assert.strictEqual(qa('.step-pill').length, 7, lab.id + ': степпер не построен');
+      assert.ok(qa('.tool-card').length >= 6, lab.id + ': панель инструментов пуста');
+      assert.ok(qa('.checklist__item').length >= 6, lab.id + ': чек-лист пуст');
+      assert.ok(qa('#theory .acc__head, #theory details').length > 0, lab.id + ': теория не отрисована');
+      assert.match(doc.querySelector('.stage__title').textContent, /Подготовка кабеля|Инструменты/, lab.id + ': сцена шага не отрисована');
+    }
+  },
+  {
+    id: 'network-socket',
+    minSheets: 4,
+    check: (doc, qa, window, lab) => {
+      assert.strictEqual(qa('.step-pill').length, 7, lab.id + ': степпер не построен');
+      assert.ok(qa('.tool-card').length >= 6, lab.id + ': панель инструментов пуста');
+      assert.ok(qa('.checklist__item').length >= 6, lab.id + ': чек-лист пуст');
+      assert.ok(qa('#theory .acc__head, #theory details').length > 0, lab.id + ': теория не отрисована');
+      assert.match(doc.querySelector('.stage__title').textContent, /Инструменты/, lab.id + ': сцена шага не отрисована');
+    }
+  },
+  {
+    id: 'socket-quest',
+    minSheets: 2,
+    minRules: 4,
+    check: (doc, qa, window, lab) => {
+      assert.strictEqual(qa('.rail-item').length, 7, lab.id + ': рельс эпизодов не построен');
+      assert.ok(qa('.msg').length >= 4, lab.id + ': диалог не отрисован');
+      assert.ok(qa('[data-choice]').length >= 3, lab.id + ': нет вариантов решения');
+      assert.match(doc.querySelector('.episode__title').textContent, /Первое утро/, lab.id + ': эпизод не открылся');
+      assert.strictEqual(doc.querySelector('#score-chip').textContent.trim(), '0 / 100', lab.id + ': стартовый балл');
+    }
+  }
 ];
 
 async function checkLab(lab) {
@@ -31,7 +63,11 @@ async function checkLab(lab) {
     runScripts: 'dangerously',
     resources: 'usable',
     pretendToBeVisual: true,
-    virtualConsole
+    virtualConsole,
+    // jsdom не умеет прокрутку — подменяем до запуска скриптов страницы
+    beforeParse(window) {
+      window.scrollTo = () => {};
+    }
   });
   const { window } = dom;
   await new Promise((resolve) => setTimeout(resolve, 700));
@@ -39,20 +75,19 @@ async function checkLab(lab) {
   const qa = (sel) => Array.from(doc.querySelectorAll(sel));
 
   /* Стили подключились из папки, а не «пропали» */
-  assert.ok(doc.styleSheets.length >= 4, lab.id + ': подключилось стилей — ' + doc.styleSheets.length);
+  assert.ok(doc.styleSheets.length >= lab.minSheets, lab.id + ': подключилось стилей — ' + doc.styleSheets.length);
   const cssHrefs = Array.from(doc.querySelectorAll('link[rel="stylesheet"]')).map((l) => l.getAttribute('href'));
   cssHrefs.forEach((href) => {
     const sheet = Array.from(doc.styleSheets).find((s) => (s.href || '').endsWith(href));
     assert.ok(sheet, lab.id + ': таблица стилей не загрузилась по file:// — ' + href);
-    assert.ok(sheet.cssRules.length > 10, lab.id + ': пустая таблица стилей — ' + href);
+    assert.ok(
+      sheet.cssRules.length >= (lab.minRules || 10),
+      lab.id + ': пустая таблица стилей — ' + href
+    );
   });
 
   /* Скрипты исполнились: интерфейс собран */
-  assert.strictEqual(qa('.step-pill').length, 7, lab.id + ': степпер не построен');
-  assert.ok(qa('.tool-card').length >= 6, lab.id + ': панель инструментов пуста');
-  assert.ok(qa('.checklist__item').length >= 6, lab.id + ': чек-лист пуст');
-  assert.ok(qa('#theory .acc__head, #theory details').length > 0, lab.id + ': теория не отрисована');
-  assert.match(doc.querySelector('.stage__title').textContent, lab.firstStep, lab.id + ': сцена шага не отрисована');
+  lab.check(doc, qa, window, lab);
   assert.strictEqual(typeof window.AppState, 'object', lab.id + ': модель состояния не загрузилась');
   assert.strictEqual(typeof window.AppState.computeScore().total, 'number', lab.id + ': баллы не считаются');
   assert.strictEqual(window.AppState.computeScore().total, 0, lab.id + ': стартовый балл должен быть 0');
@@ -63,8 +98,9 @@ async function checkLab(lab) {
   }
 
   /* Первое действие в сцене выполняется */
-  const firstAction = doc.querySelector('.kterm, .kit-card, #cable-piece, .chip-wire, [data-act]');
+  const firstAction = doc.querySelector('.kterm, .kit-card, #cable-piece, .chip-wire, [data-act], [data-choice]');
   assert.ok(firstAction, lab.id + ': в сцене нет ни одного интерактивного элемента');
+  firstAction.dispatchEvent(new window.MouseEvent('click', { bubbles: true, cancelable: true }));
 
   assert.deepStrictEqual(errors, [], lab.id + ': ошибки при загрузке по file:// — ' + errors.join('; '));
   window.close();
@@ -75,7 +111,7 @@ async function run() {
   const results = [];
   for (const lab of LABS) results.push(await checkLab(lab));
   results.forEach((r) => console.log('  · ' + r.id + ': file:// — стилей ' + r.sheets + ', интерфейс собран'));
-  console.log('✓ по file://: обе папки открываются и работают без сервера и без сохранения прогресса');
+  console.log('✓ по file://: все папки открываются и работают без сервера и без сохранения прогресса');
 }
 
 run().catch((err) => {

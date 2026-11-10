@@ -31,6 +31,17 @@ const SIMULATORS = {
       'simulators/twisted-pair/js/app.js'
     ]
   },
+  'socket-quest': {
+    dir: 'simulators/socket-quest',
+    scripts: [
+      'simulators/socket-quest/js/vendor/core.js',
+      'simulators/socket-quest/js/vendor/icons.js',
+      'simulators/socket-quest/js/data.js',
+      'simulators/socket-quest/js/state.js',
+      'simulators/socket-quest/js/render.js',
+      'simulators/socket-quest/js/app.js'
+    ]
+  },
   'network-socket': {
     dir: 'simulators/network-socket',
     scripts: [
@@ -87,6 +98,13 @@ function bootSimulator(id, opts) {
     removeEventListener() {}
   });
   window.scrollTo = () => {};
+  window.print = () => {
+    window.__printed = true;
+  };
+  window.URL.createObjectURL = () => 'blob:mock';
+  window.URL.revokeObjectURL = () => {};
+  // jsdom не умеет скачивать файлы: клик по <a download> не должен шуметь в отчёте тестов
+  window.HTMLAnchorElement.prototype.click = function noop() {};
 
   if (o.storage) {
     const key = o.storageKey || 'netsys.tp.state.v1';
@@ -120,8 +138,16 @@ function bootSimulator(id, opts) {
   const pup = (node) =>
     node.dispatchEvent(new window.MouseEvent('pointerup', { bubbles: true, cancelable: true, clientX: 10, clientY: 10 }));
   const toasts = () => qa('.toast__title').map((t) => t.textContent);
+  const change = (node, checked) => {
+    if (typeof checked === 'boolean') node.checked = checked;
+    node.dispatchEvent(new window.Event('change', { bubbles: true }));
+  };
+  const type = (node, value) => {
+    node.value = value;
+    node.dispatchEvent(new window.Event('input', { bubbles: true }));
+  };
 
-  return { window, doc, q, qa, click, key, pdown, pup, toasts, errors, wait };
+  return { window, doc, q, qa, click, key, change, type, pdown, pup, toasts, errors, wait };
 }
 
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));

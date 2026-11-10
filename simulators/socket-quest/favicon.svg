@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Квест «Смена в СетьПолисе»">
+  <rect width="64" height="64" rx="14" fill="#a8391d"/>
+  <rect x="14" y="16" width="36" height="30" rx="6" fill="#fff6f1"/>
+  <rect x="22" y="22" width="8" height="10" rx="2" fill="#a8391d"/>
+  <rect x="34" y="22" width="8" height="10" rx="2" fill="#a8391d"/>
+  <path d="M22 38h20" stroke="#a8391d" stroke-width="3" stroke-linecap="round"/>
+  <path d="M32 46v6" stroke="#fff6f1" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="32" cy="55" r="3" fill="#ff9c73"/>
+</svg>
