@@ -65,5 +65,6 @@ server.listen(PORT, HOST, () => {
   console.log('  витрина:  http://localhost:' + PORT + '/');
   console.log('  обжим:    http://localhost:' + PORT + '/simulators/twisted-pair/');
   console.log('  розетки:  http://localhost:' + PORT + '/simulators/network-socket/');
+  console.log('  квест:    http://localhost:' + PORT + '/simulators/socket-quest/');
   console.log('  корень: ' + ROOT);
 });
