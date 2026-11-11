@@ -1,0 +1,220 @@
+/* ==========================================================================
+   panel.css — сцены и компоненты тренажёра «Смена на узле связи»
+   (монтаж коммутационной панели). Опирается на токены и quest.css,
+   добавляет только то, чего нет в квесте про розетки: роли, чат,
+   кросс-план, тест по портам, журнал кроссовой и рефлексивную мишень.
+   ========================================================================== */
+
+/* ---------- Роль в шапке ------------------------------------------------- */
+.q-chip--role { max-width: 210px; overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------- Чат объекта -------------------------------------------------- */
+.dlg--chat { margin-top: var(--u-s3); }
+.msg__time { color: var(--u-faint); font-family: var(--u-font-mono); font-size: var(--u-fs-2xs); }
+
+/* ---------- Роли в бригаде ----------------------------------------------- */
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: var(--u-s2);
+}
+.role-card {
+  display: grid;
+  gap: var(--u-s1);
+  align-content: start;
+  justify-items: start;
+  padding: var(--u-s3) var(--u-s4);
+  border: 0;
+  border-radius: var(--u-r-md);
+  background: var(--u-surface);
+  box-shadow: var(--u-shadow-1), inset 0 0 0 1px var(--u-line);
+  text-align: start;
+  cursor: pointer;
+  transition: transform var(--u-dur-1) var(--u-ease), box-shadow var(--u-dur-2) var(--u-ease);
+}
+.role-card:hover { transform: translateY(-2px); box-shadow: var(--u-shadow-2), inset 0 0 0 1px var(--u-line-strong); }
+.role-card.is-on { background: var(--u-accent-soft); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--u-accent) 32%, transparent); }
+.role-card__name { font-size: var(--u-fs-base); font-weight: 600; letter-spacing: var(--u-ls-ui); }
+.role-card__duty { font-size: var(--u-fs-xs); color: var(--u-muted); line-height: 1.5; }
+.role-card__phrase {
+  font-size: var(--u-fs-xs);
+  color: var(--u-accent);
+  line-height: 1.5;
+  padding-top: var(--u-s1);
+  border-top: 1px dashed color-mix(in srgb, var(--u-accent) 35%, transparent);
+}
+
+/* ---------- Кросс-план --------------------------------------------------- */
+.links { display: grid; gap: var(--u-s2); }
+.link-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) 20px minmax(0, 1.4fr) 18px;
+  gap: var(--u-s2);
+  align-items: center;
+  padding: var(--u-s3) var(--u-s4);
+  border-radius: var(--u-r-md);
+  background: var(--u-surface);
+  box-shadow: var(--u-shadow-1), inset 0 0 0 1px var(--u-line);
+}
+.link-row.is-ok { background: var(--u-ok-soft); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--u-ok) 30%, transparent); }
+.link-row__place { font-size: var(--u-fs-sm); font-weight: 600; }
+.link-row__arrow { color: var(--u-faint); text-align: center; }
+.link-row__ports { display: flex; flex-wrap: wrap; gap: var(--u-s1); }
+.link-row__mark { font-size: var(--u-fs-base); font-weight: 700; color: var(--u-ok); text-align: center; }
+.link-row.is-ok .link-row__mark { color: var(--u-ok); }
+.link-row__why {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-top: var(--u-s2);
+  border-top: 1px dashed color-mix(in srgb, var(--u-ok) 40%, transparent);
+  font-size: var(--u-fs-xs);
+  color: var(--u-muted);
+  line-height: 1.55;
+}
+.link-opt {
+  min-width: 44px;
+  min-height: 32px;
+  padding: 0 var(--u-s2);
+  border: 0;
+  border-radius: var(--u-r-sm);
+  background: var(--u-surface-sunk);
+  box-shadow: inset 0 0 0 1px var(--u-line);
+  font-family: var(--u-font-mono);
+  font-size: var(--u-fs-sm);
+  cursor: pointer;
+  transition: background var(--u-dur-1) var(--u-ease), box-shadow var(--u-dur-1) var(--u-ease);
+}
+.link-opt:hover { background: var(--u-surface); box-shadow: inset 0 0 0 1px var(--u-line-strong); }
+.link-opt.is-locked { cursor: default; }
+.link-opt.is-right { background: var(--u-ok-soft); color: var(--u-ok); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--u-ok) 35%, transparent); }
+.link-opt.is-wrong { background: var(--u-danger-soft); color: var(--u-danger); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--u-danger) 35%, transparent); }
+.link-opt.is-chosen:not(.is-right):not(.is-wrong) { box-shadow: inset 0 0 0 1px var(--u-accent); }
+
+/* ---------- Тайм-бокс ротации -------------------------------------------- */
+.timer-box {
+  display: grid;
+  grid-template-columns: minmax(0, 170px) minmax(0, 1fr);
+  gap: var(--u-s4);
+  align-items: center;
+  padding: var(--u-s4);
+  border-radius: var(--u-r-lg);
+  background: var(--u-inverse);
+  color: var(--u-inverse-ink);
+}
+.timer-box__num {
+  font-family: var(--u-font-mono);
+  font-size: clamp(1.9rem, 6vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--u-inverse-accent);
+  font-variant-numeric: tabular-nums;
+}
+.timer-box__side { display: grid; gap: var(--u-s1); }
+.timer-box__title { margin: 0; font-weight: 600; font-size: var(--u-fs-sm); }
+.timer-box .q-hint { color: var(--u-inverse-muted); max-width: none; margin: 0; font-size: var(--u-fs-xs); }
+.timer-box .q-hint b { color: var(--u-inverse-ink); }
+.timer-box .q-actions { margin-top: var(--u-s2); }
+.timer-box .btn { background: transparent; color: var(--u-inverse-ink); box-shadow: inset 0 0 0 1px var(--u-inverse-muted); }
+.timer-box .btn:hover { background: color-mix(in srgb, var(--u-inverse-ink) 12%, transparent); }
+
+/* ---------- Тест по портам ----------------------------------------------- */
+.port-list { display: grid; gap: 6px; }
+.port-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: var(--u-s2);
+  align-items: center;
+  padding: var(--u-s2);
+  border-radius: var(--u-r-md);
+  background: var(--u-surface-sunk);
+}
+.port-row.is-ok { background: var(--u-ok-soft); }
+.port-row__num {
+  font-family: var(--u-font-mono);
+  font-size: var(--u-fs-sm);
+  font-weight: 600;
+  color: var(--u-muted);
+  text-align: center;
+}
+.port-row__opts { display: flex; flex-wrap: wrap; gap: 6px; }
+.test-opt--sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 0 var(--u-s3);
+  font-size: var(--u-fs-2xs);
+  border-radius: var(--u-r-pill);
+}
+.test-opt--sm .test-opt__dot { width: 9px; height: 9px; margin: 0; }
+
+/* ---------- Журнал кроссовой -------------------------------------------- */
+.journal-wrap { overflow-x: auto; margin-bottom: var(--u-s3); }
+.journal {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--u-fs-sm);
+}
+.journal th,
+.journal td {
+  padding: var(--u-s2);
+  border-bottom: 1px solid var(--u-line);
+  text-align: start;
+  vertical-align: middle;
+}
+.journal th {
+  font-family: var(--u-font-mono);
+  font-size: var(--u-fs-2xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--u-faint);
+  font-weight: 500;
+}
+.journal td:first-child { width: 60px; }
+.journal td:last-child { width: 110px; }
+.journal-input { font-size: var(--u-fs-sm); }
+select.journal-input { width: 100%; padding: var(--u-s2); border: 0; border-radius: var(--u-r-sm); background: var(--u-surface-sunk); box-shadow: inset 0 0 0 1px var(--u-line); }
+
+/* ---------- Рефлексивная мишень ----------------------------------------- */
+.target { display: grid; gap: var(--u-s3); margin-bottom: var(--u-s4); }
+.target-row {
+  display: grid;
+  grid-template-columns: minmax(0, 190px) minmax(0, 1fr);
+  gap: var(--u-s3);
+  align-items: center;
+}
+.target-row__label { display: grid; gap: 2px; }
+.target-row__label b { font-size: var(--u-fs-sm); }
+.target-row__label span { font-size: var(--u-fs-2xs); color: var(--u-faint); }
+.target-row__scale { display: flex; gap: 4px; flex-wrap: wrap; }
+.target-cell {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--u-surface);
+  box-shadow: inset 0 0 0 1px var(--u-line);
+  font-family: var(--u-font-mono);
+  font-size: var(--u-fs-xs);
+  color: var(--u-muted);
+  cursor: pointer;
+  transition: background var(--u-dur-1) var(--u-ease), color var(--u-dur-1) var(--u-ease),
+    box-shadow var(--u-dur-1) var(--u-ease), transform var(--u-dur-1) var(--u-ease);
+}
+.target-cell:hover { transform: translateY(-1px); box-shadow: inset 0 0 0 1px var(--u-accent); }
+.target-cell.is-on {
+  background: var(--u-accent);
+  color: var(--u-accent-ink);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--u-accent) 20%, transparent);
+}
+
+/* ---------- Печать ------------------------------------------------------- */
+@media print {
+  .role-grid,
+  .links,
+  .port-list,
+  .target,
+  .timer-box { break-inside: avoid; }
+  .journal { font-size: 10pt; }
+}

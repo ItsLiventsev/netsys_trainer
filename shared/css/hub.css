@@ -111,6 +111,17 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
+.hub-section-title {
+  margin: 40px 0 14px;
+  font-family: var(--hub-mono, ui-monospace, monospace);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6f6c63;
+}
+
+.sim-card--lesson .sim-card__num { color: #5b3fa8; }
+
 .sim-card {
   position: relative;
   display: grid;

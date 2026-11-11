@@ -27,8 +27,9 @@ const ROOT = path.resolve(__dirname, '..');
 const LABS = {
   'twisted-pair': { css: ['base', 'components', 'report'], js: ['core', 'icons', 'shell', 'report'] },
   'network-socket': { css: ['base', 'components', 'report'], js: ['core', 'icons', 'shell', 'report'] },
-  // у квеста свой стиль и своя иконка: копируются только общие скрипты
-  'socket-quest': { css: [], js: ['core', 'icons'], favicon: false }
+  // у квестов свой стиль и своя иконка: копируются только общие скрипты
+  'socket-quest': { css: [], js: ['core', 'icons'], favicon: false },
+  'patch-panel': { css: [], js: ['core', 'icons'], favicon: false }
 };
 
 const BANNER = (from) =>

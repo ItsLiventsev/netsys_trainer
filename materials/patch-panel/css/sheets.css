@@ -1,0 +1,262 @@
+/* ==========================================================================
+   sheets.css — печатные раздатки к занятию «Монтаж коммутационной панели».
+   Экран показывает листы как страницы A4, печать — одна страница = один лист.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Golos Text";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/golos-text-cyrillic-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("../fonts/jetbrains-mono-cyrillic-wght-normal.woff2") format("woff2");
+}
+
+:root {
+  --ink: #191826;
+  --ink-2: #3a3752;
+  --muted: #6a677f;
+  --line: #cfccd9;
+  --violet: #5b3fa8;
+  --violet-soft: #f1ecfc;
+  --paper: #e9e7ef;
+  --ui: "Golos Text", "PT Sans", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 22px 12px 90px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+
+.sheet {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto 18px;
+  padding: 14mm 15mm;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(25, 24, 38, 0.08), 0 20px 44px -32px rgba(25, 24, 38, 0.55);
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 820px) {
+  .sheet { width: 100%; min-height: 0; padding: 18px; }
+}
+
+/* ---------- Общая шапка листа ------------------------------------------- */
+.sheet__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--violet);
+  margin-bottom: 14px;
+}
+.sheet__org {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.sheet__title { margin: 2px 0 0; font-size: 17px; letter-spacing: -0.01em; }
+.sheet__doc {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: var(--violet);
+  white-space: nowrap;
+  text-align: end;
+}
+
+h3 {
+  margin: 14px 0 6px;
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--violet);
+  font-family: var(--mono);
+  font-weight: 600;
+}
+h3:first-of-type { margin-top: 0; }
+p { margin: 0 0 6px; }
+b { font-weight: 600; }
+
+/* ---------- Таблицы ----------------------------------------------------- */
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th, td { padding: 4px 7px; border: 1px solid var(--line); vertical-align: top; text-align: start; }
+th {
+  background: var(--violet-soft);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+td.c { text-align: center; }
+td.mono, .mono { font-family: var(--mono); font-size: 11px; }
+td.tall { height: 22px; }
+.small { font-size: 11.5px; color: var(--ink-2); }
+.muted { color: var(--muted); }
+
+ul, ol { margin: 0 0 8px; padding-inline-start: 1.1em; }
+li { margin-bottom: 3px; }
+.check { list-style: none; padding-inline-start: 0; }
+.check li { display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 7px; margin-bottom: 4px; }
+.check li::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  margin-top: 2px;
+  border: 1.2px solid var(--ink-2);
+  border-radius: 2px;
+}
+
+/* Строка для подписи «____» */
+.fill { display: inline-block; min-width: 120px; border-bottom: 1px solid var(--ink-2); }
+.signs { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 16px; font-size: 11.5px; }
+.signs div { display: grid; gap: 2px; }
+.signs span { color: var(--muted); font-size: 9.5px; }
+
+/* ---------- Тикет заявки ------------------------------------------------ */
+.ticket {
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--violet);
+  border-radius: 4px;
+  padding: 10px 12px;
+  display: grid;
+  gap: 3px;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+.ticket__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: 1px dashed var(--line);
+}
+.ticket__id { color: var(--violet); font-weight: 600; }
+.ticket__row { display: grid; grid-template-columns: 118px minmax(0, 1fr); gap: 8px; }
+.ticket__k { color: var(--muted); font-size: 11px; }
+
+/* ---------- Шаги / этапы ------------------------------------------------ */
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 0 0 10px; }
+.steps li {
+  counter-increment: s;
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 12px;
+}
+.steps li:last-child { border-bottom: 0; }
+.steps li::before {
+  content: counter(s, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--violet);
+  padding-top: 1px;
+}
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+.box {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-size: 11.5px;
+}
+.box--violet { background: var(--violet-soft); border-color: #d7ccf5; }
+.box h4 {
+  margin: 0 0 4px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--violet);
+  font-weight: 600;
+}
+.box p:last-child, .box ul:last-child { margin-bottom: 0; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11px; margin-top: 6px; }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.swatch { width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.25); }
+
+.sheet__foot {
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* ---------- Экранная панель -------------------------------------------- */
+.bar {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px;
+  background: rgba(233, 231, 239, 0.92);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+}
+.bar a, .bar button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--ink-2);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+.bar button:hover, .bar a:hover { color: var(--violet); box-shadow: inset 0 0 0 1px #cbbdf0; }
+
+@media print {
+  @page { size: A4 portrait; margin: 0; }
+  body { padding: 0; background: #fff; font-size: 12px; }
+  .bar { display: none !important; }
+  .sheet {
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 12mm 14mm;
+    box-shadow: none;
+    break-after: page;
+    page-break-after: always;
+  }
+  .sheet:last-child { break-after: auto; page-break-after: auto; }
+  table, .box, .ticket { break-inside: avoid; }
+}
