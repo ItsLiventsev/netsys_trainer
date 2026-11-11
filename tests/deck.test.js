@@ -12,6 +12,7 @@ const { JSDOM } = require('jsdom');
 const { ROOT } = require('./helpers');
 
 const DIR = 'lessons/patch-panel';
+const SHEETS = 'materials/patch-panel';
 const read = (rel) => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 
 function walk(dir) {
@@ -78,8 +79,30 @@ function run() {
   assert.ok(fs.existsSync(path.join(ROOT, DIR, 'fonts/golos-text-cyrillic-wght-normal.woff2')), 'шрифт внутри папки');
   assert.ok(fs.existsSync(path.join(ROOT, DIR, 'css/deck.css')), 'стили сценария на месте');
 
+  /* 5. Печатные раздатки: пять листов, только локальные ссылки */
+  const sheetsHtml = read(SHEETS + '/sheets.html');
+  const sheetsDom = new JSDOM(sheetsHtml, { url: 'http://localhost/' });
+  const sheetsDoc = sheetsDom.window.document;
+  assert.strictEqual(sheetsDoc.querySelectorAll('.sheet').length, 5, 'в раздатках пять листов');
+  [
+    'Задание на смену',
+    'Операционная карта',
+    'Акт выполненных работ',
+    'Журнал кроссовой',
+    'Карточка занятия'
+  ].forEach((needle) => {
+    assert.ok(sheetsDoc.body.textContent.includes(needle), 'есть лист «' + needle + '»');
+  });
+  walk(path.join(ROOT, SHEETS))
+    .map((f) => path.relative(ROOT, f).split(path.sep).join('/'))
+    .forEach((rel) => {
+      if (/\.(woff2|txt)$/.test(rel)) return;
+      assert.strictEqual(/(src|href)\s*=\s*["']https?:\/\//i.test(read(rel)), false, 'внешний запрос в ' + rel);
+    });
+  sheetsDom.window.close();
+
   window.close();
-  console.log('✓ Сценарий урока: 22 слайда, заметки мастера, навигация, автономность');
+  console.log('✓ Сценарий урока: 22 слайда, заметки, навигация, раздатки на 5 листов, автономность');
 }
 
 try {

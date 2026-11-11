@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e9e7ef">
+  <meta name="description" content="Печатные раздатки к занятию «Монтаж коммутационной панели»: задание на смену, операционная карта, бланк акта, журнал кроссовой и карточка мастера.">
+  <title>Раздатки · Монтаж коммутационной панели</title>
+  <link rel="stylesheet" href="css/sheets.css">
+</head>
+<body>
+
+<!-- ============ Лист 1. Задание на смену ============ -->
+<section class="sheet">
+  <header class="sheet__head">
+    <div>
+      <div class="sheet__org">УП.01 Учебная практика · 09.02.06 · ООО «СетьПолис», участок кабельных систем № 2</div>
+      <h1 class="sheet__title">Задание на смену · монтаж коммутационной панели</h1>
+    </div>
+    <div class="sheet__doc">Лист 1 из 5<br>PR-09 / PP-314</div>
+  </header>
+
+  <div class="ticket">
+    <div class="ticket__top"><span class="ticket__id">⚡ PP-314 · высокий приоритет</span><span>08:30 · до конца смены</span></div>
+    <div class="ticket__row"><span class="ticket__k">Заказчик</span><span>ООО «Контур-Логистика», складской комплекс «Северный»</span></div>
+    <div class="ticket__row"><span class="ticket__k">Объект</span><span>кроссовая К-2, стойка ШТК-2, 42U</span></div>
+    <div class="ticket__row"><span class="ticket__k">Работа</span><span>монтаж патч-панели 24 × RJ-45 Cat 6A, заделка 8 портов, маркировка, кросс-план, тест линий</span></div>
+    <div class="ticket__row"><span class="ticket__k">Симптом</span><span>нет связи на Р-12, Р-13, Р-14; на Р-15 линк «мигает»</span></div>
+    <div class="ticket__row"><span class="ticket__k">Особое</span><span>стойка в работе: активное оборудование <b>не обесточивать</b></span></div>
+  </div>
+
+  <h3>Цель работы</h3>
+  <p class="small">
+    Смонтировать патч-панель 19″ в стойку и заделать восемь портов по стандарту <b>T568B</b>
+    с соблюдением кабельного менеджмента, маркировки и требований охраны труда; проверить линии
+    тестером и оформить результат документацией по образцу ГОСТ.
+  </p>
+
+  <div class="two-col">
+    <div>
+      <h3>Дано</h3>
+      <ul class="small">
+        <li>Патч-панель 24 × RJ-45, ISO/IEC 11801, Cat 6A</li>
+        <li>Стойка 19″ ШТК-2, проходной кросс</li>
+        <li>Кабель UTP/FTP Cat 6A — восемь линий от Р-12…Р-19</li>
+        <li>Органайзер, бирки, маркировочные вставки, крепёж М6</li>
+        <li>Нож кроссировочный, стриппер, бокорезы, тестер, отвёртка</li>
+        <li>Журнал кроссовой, бланк акта</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Критерии приёмки</h3>
+      <ul class="check small">
+        <li>панель на 8U, четыре винта, горизонталь, отступ 1U</li>
+        <li>пучок в органайзере, радиус изгиба ≥ 4 диаметров</li>
+        <li>оболочка 2–2,5 см, расплетение ≤ 13 мм</li>
+        <li>восемь портов по строке B, заделка «до щелчка»</li>
+        <li>маркировка: панель = бирка = журнал</li>
+        <li>тест по каждому порту, дефекты зафиксированы</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Ход работы</h3>
+  <ol class="steps">
+    <li>Пройти инструктаж и получить допуск: заказчик предупреждён, зона ограждена.</li>
+    <li>Проверить комплектность панели и крепежа, вскрыть упаковку.</li>
+    <li>Закрепить панель в стойке на 8U: четыре винта М6, по уровню, отступ 1U от активного оборудования.</li>
+    <li>Завести кабели в органайзер, собрать пучок без перетяжки, выдержать радиус изгиба.</li>
+    <li>Снять оболочку на 2–2,5 см, расплести пары не более чем на 13 мм.</li>
+    <li>Заделать восемь портов по строке B, срезать излишки, проверить «до щелчка».</li>
+    <li>Промаркировать порты, заполнить кросс-план в журнале.</li>
+    <li>Проверить линии тестером, дефекты внести в журнал, сдать работу мастеру.</li>
+    <li>Оформить акт выполненных работ и приложить результаты измерений.</li>
+  </ol>
+
+  <div class="two-col">
+    <div class="box box--violet">
+      <h4>Стандарт объекта</h4>
+      <p class="mono">1 БО · 2 О · 3 БЗ · 4 С · 5 БС · 6 З · 7 БК · 8 К</p>
+      <div class="legend">
+        <span><i class="swatch" style="background:#e8730c"></i>оранжевая пара</span>
+        <span><i class="swatch" style="background:#1f7a3f"></i>зелёная пара</span>
+        <span><i class="swatch" style="background:#1f5fb0"></i>синяя пара</span>
+        <span><i class="swatch" style="background:#7a4a1d"></i>коричневая пара</span>
+      </div>
+      <p class="small" style="margin-top:6px">Один стандарт на всю панель. Смешение A и B даёт перекрёст 3-6.</p>
+    </div>
+    <div class="box">
+      <h4>Норматив времени</h4>
+      <p class="small">Первый порт — 6–8 минут (с показом мастера).<br>
+      К концу смены: <b>4 минуты</b> на порт вместе с маркировкой и записью в журнале.</p>
+      <p class="small muted">Модуль у стойки — 20 минут, затем ротация бригад по тайм-боксу.</p>
+    </div>
+  </div>
+
+  <div class="signs">
+    <div><span>Бригада / состав</span><span class="fill"></span></div>
+    <div><span>Инструктаж провёл, подпись мастера</span><span class="fill"></span></div>
+  </div>
+
+  <footer class="sheet__foot">
+    <span>Практическая работа № 9 · монтаж коммутационной панели</span>
+    <span>Задание выдано «___» __________ 20___ г.</span>
+  </footer>
+</section>
+
+<!-- ============ Лист 2. Операционная карта ============ -->
+<section class="sheet">
+  <header class="sheet__head">
+    <div>
+      <div class="sheet__org">ООО «СетьПолис» · участок кабельных систем № 2 · объект «Северный»</div>
+      <h1 class="sheet__title">Операционная карта · восемь этапов</h1>
+    </div>
+    <div class="sheet__doc">Лист 2 из 5<br>Приложение к PP-314</div>
+  </header>
+
+  <p class="small">
+    Этап закрывается только после проверки по строке «контроль». Отметку ставит исполнитель,
+    подтверждает — ответственный за качество или мастер. Незакрытый этап передаётся следующей
+    бригаде вместе с инструментом и журналом.
+  </p>
+
+  <table>
+    <thead>
+      <tr><th style="width:26px">№</th><th>Этап</th><th>Контроль — по чему закрываем</th><th style="width:46px">Отметка</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="c mono">01</td><td>Допуск и ограждение зоны</td><td>заказчик предупреждён, окно работ названо; коврик и ограждение; инструмент разложен</td><td></td></tr>
+      <tr><td class="c mono">02</td><td>Комплектность панели и крепежа</td><td>24 порта, два ушка 19″, четыре винта М6, органайзер, бирки, вставки; панель без трещин</td><td></td></tr>
+      <tr><td class="c mono">03</td><td>Установка на 8U, горизонталь</td><td>четыре винта затянуты, уровень выставлен, отступ 1U от активного оборудования, ввод к органайзеру</td><td></td></tr>
+      <tr><td class="c mono">04</td><td>Завод кабелей, фиксация пучка</td><td>радиус изгиба ≥ 4 диаметров, оболочка не передавлена, стяжки без металлического сердечника</td><td></td></tr>
+      <tr><td class="c mono">05</td><td>Зачистка и расплетение</td><td>оболочка 2–2,5 см, жилы целы, свивка сохранена, расплетение ≤ 13 мм</td><td></td></tr>
+      <tr><td class="c mono">06</td><td>Заделка в IDC по строке B</td><td>восемь жил по строке B, заделка «до щелчка», излишки срезаны, соседние жилы не задеты</td><td></td></tr>
+      <tr><td class="c mono">07</td><td>Маркировка и журнал</td><td>панель = бирка = журнал: порт → рабочее место → порт коммутатора</td><td></td></tr>
+      <tr><td class="c mono">08</td><td>Тест и сдача мастеру</td><td>прогон по восьми портам, результат записан, дефекты в списке, работа принята</td><td></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Типичные ошибки — что проверяем отдельно</h3>
+  <table>
+    <thead><tr><th>Ошибка</th><th>Чем заканчивается</th><th style="width:70px">Баллы</th></tr></thead>
+    <tbody>
+      <tr><td>Смешан стандарт A/B на разных концах линии</td><td>перекрёст 3-6, падение до 100 Мбит/с, «иногда работает»</td><td class="c mono">−3</td></tr>
+      <tr><td>Расплетение пары 3–4 см</td><td>рост NEXT и обратных потерь, Cat 6A не держит 10G</td><td class="c mono">−2</td></tr>
+      <tr><td>Перетянутая стяжка, оболочка продавлена</td><td>меняется геометрия пары, жила надламывается</td><td class="c mono">−2</td></tr>
+      <tr><td>Панель на двух винтах, перекос</td><td>натяг патч-кордов, отказ порта, панель выворачивает</td><td class="c mono">−2</td></tr>
+      <tr><td>Нет маркировки или расходится с журналом</td><td>порт не найти, работу начинают заново</td><td class="c mono">−2</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Самоконтроль перед приёмкой</h3>
+  <ul class="check small">
+    <li>Панель на четырёх винтах, горизонталь выставлена, отступ 1U соблюдён.</li>
+    <li>Пучок в органайзере, стяжки не передавливают оболочку, радиус изгиба соблюдён.</li>
+    <li>Оболочка снята на 2–2,5 см, расплетение не больше 13 мм.</li>
+    <li>Все восемь портов заделаны по строке B, излишки срезаны.</li>
+    <li>Маркировка на панели и в журнале совпадает, кросс-план заполнен.</li>
+  </ul>
+
+  <div class="signs">
+    <div><span>Исполнитель (роль, ФИО)</span><span class="fill"></span></div>
+    <div><span>Мастер производственного обучения</span><span class="fill"></span></div>
+  </div>
+
+  <footer class="sheet__foot">
+    <span>Карта из восьми этапов · 25 баллов из 100</span>
+    <span>Этап закрыт = проверено по строке «контроль»</span>
+  </footer>
+</section>
+
+<!-- ============ Лист 3. Бланк акта ============ -->
+<section class="sheet">
+  <header class="sheet__head">
+    <div>
+      <div class="sheet__org">ООО «СетьПолис» · участок кабельных систем № 2</div>
+      <h1 class="sheet__title">Акт выполненных работ № PP-314</h1>
+    </div>
+    <div class="sheet__doc">Лист 3 из 5<br>Форма по образцу ГОСТ</div>
+  </header>
+
+  <table>
+    <tbody>
+      <tr><th style="width:150px">Объект</th><td>ООО «Контур-Логистика», складской комплекс «Северный», кроссовая К-2, стойка ШТК-2</td></tr>
+      <tr><th>Основание</th><td>Заявка PP-314 от «___» __________ 20___ г., приоритет высокий</td></tr>
+      <tr><th>Оборудование</th><td>Патч-панель 19″, 24 × RJ-45, ISO/IEC 11801, Cat 6A; кабель Cat 6A</td></tr>
+      <tr><th>Стандарт</th><td>T568B (единый для всей панели)</td></tr>
+      <tr><th>Исполнитель</th><td>ФИО <span class="fill" style="min-width:200px"></span> · группа <span class="fill" style="min-width:80px"></span> · роль <span class="fill" style="min-width:140px"></span></td></tr>
+      <tr><th>Дата работ</th><td><span class="fill" style="min-width:140px"></span> · время смены <span class="fill" style="min-width:80px"></span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>1. Состав выполненных работ</h3>
+  <table>
+    <tbody>
+      <tr><td style="width:26px" class="c mono">1.1</td><td>Монтаж патч-панели в стойку: 8U, четыре винта М6, горизонталь, отступ 1U от активного оборудования</td><td style="width:60px" class="c">вып.</td></tr>
+      <tr><td class="c mono">1.2</td><td>Кабельный менеджмент: органайзер, пучок без перетяжки, радиус изгиба ≥ 4 диаметров</td><td class="c">вып.</td></tr>
+      <tr><td class="c mono">1.3</td><td>Заделка восьми портов по T568B, срез излишков, контроль «до щелчка»</td><td class="c">вып.</td></tr>
+      <tr><td class="c mono">1.4</td><td>Маркировка линий, заполнение кросс-плана и журнала кроссовой</td><td class="c">вып.</td></tr>
+      <tr><td class="c mono">1.5</td><td>Тестирование линий, фиксация результатов по каждому порту</td><td class="c">вып.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>2. Результаты измерений по портам</h3>
+  <table>
+    <thead><tr><th style="width:46px">Порт</th><th>Рабочее место</th><th style="width:70px">Порт SW</th><th style="width:70px">Тест</th><th style="width:110px">Примечание</th></tr></thead>
+    <tbody>
+      <tr><td class="c mono">01</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">02</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">03</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">04</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">05</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">06</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">07</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">08</td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <h3>3. Выявленные дефекты и отклонения</h3>
+  <table><tbody>
+    <tr><td class="tall"></td></tr>
+    <tr><td class="tall"></td></tr>
+    <tr><td class="tall"></td></tr>
+  </tbody></table>
+
+  <h3>4. Оценка выполненных работ</h3>
+  <table>
+    <thead><tr><th>Критерий</th><th style="width:80px">Максимум</th><th style="width:80px">Набрано</th></tr></thead>
+    <tbody>
+      <tr><td>Подключение и раскладка по T568B</td><td class="c mono">30</td><td></td></tr>
+      <tr><td>Качество монтажа и кабельного менеджмента</td><td class="c mono">25</td><td></td></tr>
+      <tr><td>Работоспособность портов (тест и приёмка)</td><td class="c mono">20</td><td></td></tr>
+      <tr><td>Документация и отчёт</td><td class="c mono">15</td><td></td></tr>
+      <tr><td>Ответы на контрольные вопросы</td><td class="c mono">10</td><td></td></tr>
+      <tr><th>Итого</th><th class="c mono">100</th><th></th></tr>
+    </tbody>
+  </table>
+
+  <h3>5. Вывод</h3>
+  <table><tbody><tr><td class="tall" style="height:44px"></td></tr></tbody></table>
+
+  <div class="signs">
+    <div><span>Работы сдал (исполнитель)</span><span class="fill"></span></div>
+    <div><span>Работы принял (мастер п/о)</span><span class="fill"></span></div>
+  </div>
+
+  <footer class="sheet__foot">
+    <span>Формулировки — только факты и цифры, без «примерно» и «вроде»</span>
+    <span>90–100 отлично · 75–89 хорошо · 60–74 удовл.</span>
+  </footer>
+</section>
+
+<!-- ============ Лист 4. Журнал кроссовой ============ -->
+<section class="sheet">
+  <header class="sheet__head">
+    <div>
+      <div class="sheet__org">Объект «Северный» · кроссовая К-2 · стойка ШТК-2</div>
+      <h1 class="sheet__title">Журнал кроссовой</h1>
+    </div>
+    <div class="sheet__doc">Лист 4 из 5<br>Ведётся по ходу работ</div>
+  </header>
+
+  <p class="small">
+    Одно и то же имя — на панели, на бирке кабеля и в этом журнале. Запись делается сразу после
+    заделки порта, а не «в конце, если останется время». Порт без маркировки считается
+    незаделанным при приёмке.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:40px">Порт</th><th>Рабочее место</th><th style="width:86px">Кабель / бирка</th>
+        <th style="width:78px">Порт SW</th><th style="width:60px">Тест</th><th style="width:110px">Примечание</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="c mono">01</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">02</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">03</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">04</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">05</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">06</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">07</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">08</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">09</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">10</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">11</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">12</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">13</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">14</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">15</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">16</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">17</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">18</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">19</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">20</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">21</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">22</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">23</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="c mono">24</td><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="two-col" style="margin-top:10px">
+    <div class="box">
+      <h4>Как заполнять</h4>
+      <ul class="small">
+        <li><b>Порт</b> — номер порта на панели (1–24).</li>
+        <li><b>Рабочее место</b> — как на бирке: Р-12 · бухгалтерия.</li>
+        <li><b>Порт SW</b> — порт коммутатора, куда идёт линия (Gi1/0/13).</li>
+        <li><b>Тест</b> — PASS / FAIL / не проверено.</li>
+        <li><b>Примечание</b> — дефект, дата, кто устранил.</li>
+      </ul>
+    </div>
+    <div class="box box--violet">
+      <h4>Дефекты, найденные в чужой работе</h4>
+      <p class="small">
+        Панель PP-2R в стойке ШТК-2 заделана по строке A при кроссе по B → перекрёст 3-6 на линиях
+        Р-12…Р-15. Фиксируем в журнале, прикладываем показания тестера, согласуем отдельную заявку.
+        Молча переделывать чужую панель нельзя: это работа без допуска и без записи.
+      </p>
+    </div>
+  </div>
+
+  <div class="signs">
+    <div><span>Журнал вёл (роль, ФИО)</span><span class="fill"></span></div>
+    <div><span>Проверил мастер</span><span class="fill"></span></div>
+  </div>
+
+  <footer class="sheet__foot">
+    <span>Журнал кроссовой — часть акта, а не «черновик»</span>
+    <span>Стр. ____ из ____</span>
+  </footer>
+</section>
+
+<!-- ============ Лист 5. Карточка мастера ============ -->
+<section class="sheet">
+  <header class="sheet__head">
+    <div>
+      <div class="sheet__org">Мастеру производственного обучения · занятие 45 минут</div>
+      <h1 class="sheet__title">Карточка занятия и оценивание</h1>
+    </div>
+    <div class="sheet__doc">Лист 5 из 5<br>Для мастера и эксперта</div>
+  </header>
+
+  <h3>Ход занятия (45 минут)</h3>
+  <table>
+    <thead><tr><th style="width:52px">Мин</th><th style="width:150px">Этап</th><th>Действия</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">0–3</td><td>Приветствие, фиксация</td><td>список, зоны бригад, готовность рабочего места</td></tr>
+      <tr><td class="mono">3–6</td><td>Мотивация и цель</td><td>заявка PP-314 → вопрос «что сдаём?» → совместное целеполагание</td></tr>
+      <tr><td class="mono">6–12</td><td>Кейс и роли</td><td>разбор заявки и чата, четыре роли, договор бригады (3 пункта)</td></tr>
+      <tr><td class="mono">12–20</td><td>Допуск ОТ и ТБ</td><td>пять пунктов + показ опасных зон + мини-кейс на понимание</td></tr>
+      <tr><td class="mono">20–26</td><td>Инструмент и стандарт</td><td>набор из девяти позиций (две лишние), 30 секунд теории</td></tr>
+      <tr><td class="mono">26–38</td><td>Два формата</td><td>показ первого порта 5 мин; бригада 1 — стойка, остальные — симулятор</td></tr>
+      <tr><td class="mono">38–43</td><td>Ротация и приёмка</td><td>сигнал тайм-бокса, передача зоны, приёмка первого порта</td></tr>
+      <tr><td class="mono">43–45</td><td>Итог и рефлексия</td><td>три вопроса, мишень, уборка зоны</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Чек-лист посещения: где закрывается (43 балла)</h3>
+  <table>
+    <thead><tr><th>Блок</th><th style="width:52px">Макс.</th><th>Точка закрытия на занятии</th></tr></thead>
+    <tbody>
+      <tr><td>1. Подготовительный: готовность места, распределение</td><td class="c mono">4</td><td>зоны размечены до звонка, инструмент разложен, роли известны</td></tr>
+      <tr><td>2. Организационный: начало, приветствие, инструктаж</td><td class="c mono">7</td><td>старт по звонку; инструктаж с показом опасных зон и контролем понимания</td></tr>
+      <tr><td>3. Основной: мотивация, цель, задание, самостоятельность, обход, уборка</td><td class="c mono">20</td><td>заявка и связь с профессией; критерии и тайминг; автономная работа; целевой обход; уборка</td></tr>
+      <tr><td>4. Результативность: оценивание, качество продукта</td><td class="c mono">6</td><td>самооценка → приёмка мастером → разбор дефектов; эталон на столе</td></tr>
+      <tr><td>5. Общий ход: экономия, тайминг, этика</td><td class="c mono">6</td><td>расход материалов по норме; тайм-боксы; культура общения и правило «стоп»</td></tr>
+      <tr><th>Итого</th><th class="c mono">43</th><th>43–37 высокая · 36–31 удовлетворительная · 30–0 низкая</th></tr>
+    </tbody>
+  </table>
+
+  <div class="two-col">
+    <div class="box">
+      <h4>Где теряются баллы</h4>
+      <ul class="small">
+        <li>Инструктаж без контроля понимания.</li>
+        <li>Помощь только сильным бригадам вместо обхода по кругу.</li>
+        <li>Нет уборки и итога из-за нехватки времени.</li>
+      </ul>
+    </div>
+    <div class="box box--violet">
+      <h4>Оценивание работы (100 баллов)</h4>
+      <ul class="small">
+        <li>Подключение и раскладка по B — 30</li>
+        <li>Качество монтажа и менеджмента — 25</li>
+        <li>Работоспособность портов — 20</li>
+        <li>Документация и отчёт — 15</li>
+        <li>Контрольные вопросы — 10</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Рефлексивная мишень</h3>
+  <table>
+    <thead><tr><th>Шкала (1–10)</th><th>Оценка бригады / группы</th><th>Комментарий мастера</th></tr></thead>
+    <tbody>
+      <tr><td>Было интересно</td><td style="width:120px"></td><td></td></tr>
+      <tr><td>Мне это пригодится в будущем</td><td></td><td></td></tr>
+      <tr><td>Понимание и доступность материала</td><td></td><td></td></tr>
+    </tbody>
+  </table>
+  <p class="small muted" style="margin-top:6px">Что оставить: <span class="fill" style="min-width:200px"></span> Что изменить: <span class="fill" style="min-width:200px"></span></p>
+
+  <div class="signs">
+    <div><span>Мастер п/о</span><span class="fill"></span></div>
+    <div><span>Эксперт (при посещении)</span><span class="fill"></span></div>
+  </div>
+
+  <footer class="sheet__foot">
+    <span>Сценарий урока: lessons/patch-panel · симулятор: simulators/patch-panel</span>
+    <span>Дата «___» __________ 20___ г.</span>
+  </footer>
+</section>
+
+<div class="bar">
+  <a href="../../lessons/patch-panel/">← Сценарий урока</a>
+  <button type="button" onclick="window.print()">Печать всех листов</button>
+  <a href="README.md">Методическая записка</a>
+</div>
+
+</body>
+</html>

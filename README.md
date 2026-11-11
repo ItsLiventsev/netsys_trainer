@@ -17,7 +17,8 @@
 
 Сценарий урока к теме «Монтаж коммутационной панели» (УП.01, 09.02.06) —
 [`lessons/patch-panel/`](lessons/patch-panel/): 22 слайда, заметки мастера, печать A4 landscape.
-Методическая записка — [`materials/patch-panel/`](materials/patch-panel/README.md).
+Методическая записка — [`materials/patch-panel/`](materials/patch-panel/README.md),
+печатные раздатки для бригад — [`materials/patch-panel/sheets.html`](materials/patch-panel/sheets.html).
 
 Корневой `index.html` — витрина со списком тренажёров.
 
@@ -141,6 +142,9 @@ lessons/
     fonts/                    Golos Text и JetBrains Mono + лицензии OFL
 materials/
   patch-panel/README.md       методическая записка: техкарта, роли, оценивание, риски
+  patch-panel/sheets.html     раздатки на A4: задание, карта на 8 этапов, акт, журнал (24 порта),
+                              карточка мастера с чек-листом на 43 балла
+  patch-panel/css/sheets.css  оформление листов и правила печати
 
 tests/
   helpers.js                  jsdom-стенд: поднимает страницу лаборатории в памяти
