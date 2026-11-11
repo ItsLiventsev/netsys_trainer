@@ -42,6 +42,17 @@ const SIMULATORS = {
       'simulators/socket-quest/js/app.js'
     ]
   },
+  'patch-panel': {
+    dir: 'simulators/patch-panel',
+    scripts: [
+      'simulators/patch-panel/js/vendor/core.js',
+      'simulators/patch-panel/js/vendor/icons.js',
+      'simulators/patch-panel/js/data.js',
+      'simulators/patch-panel/js/state.js',
+      'simulators/patch-panel/js/render.js',
+      'simulators/patch-panel/js/app.js'
+    ]
+  },
   'network-socket': {
     dir: 'simulators/network-socket',
     scripts: [

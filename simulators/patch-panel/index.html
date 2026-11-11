@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#efeee9">
+  <meta name="description" content="Квест-смена «Монтаж коммутационной панели»: заявка от предприятия, инструктаж, аудит чужой работы, T568B, кросс-план, журнал кроссовой и акт выполненных работ.">
+  <!-- Разрешаем встраивание в iframe МЭШ, открытие с диска (file:) и запрещаем внешние запросы. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; script-src 'self' file:; style-src 'self' file: 'unsafe-inline'; img-src 'self' file: data:; font-src 'self' file:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' https://school.mos.ru https://*.mos.ru">
+  <title>Смена на узле связи — монтаж коммутационной панели</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/quest.css">
+  <link rel="stylesheet" href="css/panel.css">
+</head>
+<body>
+  <a class="skip-link" href="#episode-root">Перейти к содержанию смены</a>
+
+  <header class="q-masthead">
+    <div class="q-masthead__inner">
+      <div class="q-brand">
+        <span class="q-brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2.5" y="8" width="19" height="8" rx="1.6"></rect>
+            <path d="M6 8v8M9 8v8M12 8v8M15 8v8M18 8v8"></path>
+            <circle cx="4.4" cy="5" r="1.1" fill="currentColor" stroke="none"></circle>
+            <circle cx="19.6" cy="5" r="1.1" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </span>
+        <span class="q-brand__text">
+          <span class="q-brand__title">Смена на узле связи</span>
+          <span class="q-brand__sub">монтаж коммутационной панели · T568B · Cat 6A</span>
+        </span>
+      </div>
+
+      <div class="q-tools">
+        <span class="q-chip q-chip--role" title="Ваша роль в бригаде">
+          <span aria-hidden="true">🎭</span>
+          <span id="role-chip">роль не выбрана</span>
+        </span>
+        <span class="q-chip" title="Время смены">
+          <span aria-hidden="true">⏱</span>
+          <span class="mono" id="shift-clock">00:00</span>
+        </span>
+        <span class="q-chip q-chip--score" title="Текущий итог">
+          <span aria-hidden="true">★</span>
+          <span class="mono" id="score-chip">0 / 100</span>
+        </span>
+        <button type="button" class="btn btn--sm" id="brief-btn">Задание</button>
+        <button type="button" class="btn btn--sm btn--ghost" id="print-task">Печать</button>
+        <button type="button" class="btn btn--icon" id="theme-btn" aria-label="Тёмная тема">🌙</button>
+        <button type="button" class="btn btn--icon" id="reset-btn" aria-label="Начать смену заново" title="Начать заново">↺</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="q-layout">
+    <aside class="q-rail" aria-label="Ход смены">
+      <div class="q-rail__card">
+        <div class="q-kicker">Заявка</div>
+        <div class="q-rail__ticket mono">PP-314</div>
+        <p class="q-rail__object">ООО «Контур-Логистика»<br>склад «Северный» · кроссовая К-2</p>
+        <div class="q-progress" aria-hidden="true"><span id="progress-fill" style="--p:0"></span></div>
+        <div class="q-meta" id="progress-label">0 из 8 эпизодов</div>
+      </div>
+
+      <nav aria-label="Эпизоды смены">
+        <ol class="rail-list" id="rail-list"></ol>
+      </nav>
+
+      <p class="q-rail__note">
+        Квест — это повествование и рабочий лист. Всё физическое делаете руками: панель, кабель,
+        нож, тестер и стойка. Страница фиксирует этапы, считает баллы и собирает акт.
+      </p>
+    </aside>
+
+    <main class="q-main">
+      <section id="episode-root" class="episode-host" aria-label="Текущий эпизод смены"></section>
+
+      <nav class="q-nav" aria-label="Навигация по эпизодам">
+        <button type="button" class="btn" id="prev-btn">← Назад</button>
+        <span class="q-nav__hint" id="unlock-btn" hidden></span>
+        <button type="button" class="btn btn--primary" id="next-btn">Дальше</button>
+      </nav>
+
+      <footer class="q-foot">
+        <p>
+          <b>Смена на узле связи</b> · ситуационная задача по практической работе «Монтаж коммутационной панели».
+          Оценка — 100 баллов: подключение по T568B 30, качество монтажа 25, работоспособность портов 20, документация 15, вопросы 10.
+        </p>
+        <p class="q-foot__meta">
+          Прогресс хранится в этом браузере. Итог отправляется в МЭШ сообщением <code>postMessage</code>.
+          Внешних запросов нет: шрифты, стили и скрипты лежат в этой папке.
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <div class="toasts" id="toasts" role="status" aria-live="polite" aria-atomic="false"></div>
+  <div id="sr-status" class="sr-only" role="status" aria-live="polite"></div>
+  <div id="modal-root"></div>
+  <div id="print-area" aria-hidden="true"></div>
+
+  <noscript>
+    <p style="margin:16px">Для работы квеста нужен JavaScript.</p>
+  </noscript>
+
+  <script src="js/vendor/core.js"></script>
+  <script src="js/vendor/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

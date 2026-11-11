@@ -46,6 +46,15 @@ const LABS = [
     minFiles: 14
   },
   {
+    id: 'patch-panel',
+    css: ['css/tokens.css', 'css/quest.css', 'css/panel.css'],
+    js: ['js/vendor/core.js', 'js/vendor/icons.js', 'js/data.js', 'js/state.js', 'js/render.js', 'js/app.js'],
+    vendored: CORE_JS,
+    font: 'fonts/golos-text-cyrillic-wght-normal.woff2',
+    minFiles: 16,
+    minRefs: 9
+  },
+  {
     id: 'socket-quest',
     css: ['css/tokens.css', 'css/quest.css'],
     js: ['js/vendor/core.js', 'js/vendor/icons.js', 'js/data.js', 'js/state.js', 'js/render.js', 'js/app.js'],
