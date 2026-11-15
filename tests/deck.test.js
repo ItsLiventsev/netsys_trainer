@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * deck.test.js — сценарий урока «Монтаж коммутационной панели»:
- * структура слайдов, заметки мастера, навигация, автономность папки.
+ * структура слайдов, заметки мастера, навигация, автономность папки,
+ * печатные раздатки и текстовый сценарий занятия (.md и .docx).
  */
 'use strict';
 
@@ -101,8 +102,31 @@ function run() {
     });
   sheetsDom.window.close();
 
+  /* 6. Сценарий занятия: .md с репликами, ротацией и ссылками + собранный .docx */
+  const scenario = read(SHEETS + '/scenario.md');
+  [
+    'Бригада 1',
+    'Бригада 2',
+    'Бригада 3',
+    'Бригада 4',
+    '20 минут',
+    'рефлексивная мишень',
+    'uchebnik.mos.ru/material/72074716-114a-4a97-a304-79077fbbff5e',
+    'uchebnik.mos.ru/material/ebc17f83-c934-43f8-b6cd-2d8b18a2868f',
+    'itsliventsev.github.io/netsys_trainer/simulators/patch-panel/'
+  ].forEach((needle) => {
+    assert.ok(scenario.includes(needle), 'в сценарии занятия есть «' + needle + '»');
+  });
+  [SHEETS + '/scenario.docx', SHEETS + '/deck-handout.docx'].forEach((rel) => {
+    const full = path.join(ROOT, rel);
+    assert.ok(fs.existsSync(full), 'собран документ ' + rel);
+    assert.ok(fs.statSync(full).size > 20000, rel + ' не пустой');
+  });
+  const root = read('index.html');
+  assert.ok(root.includes('materials/patch-panel/scenario.docx'), 'на витрине есть карточка сценария');
+
   window.close();
-  console.log('✓ Сценарий урока: 22 слайда, заметки, навигация, раздатки на 5 листов, автономность');
+  console.log('✓ Сценарий урока: 22 слайда, заметки, навигация, раздатки на 5 листов, сценарий .md/.docx, автономность');
 }
 
 try {
