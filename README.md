@@ -20,6 +20,17 @@
 Методическая записка — [`materials/patch-panel/`](materials/patch-panel/README.md),
 печатные раздатки для бригад — [`materials/patch-panel/sheets.html`](materials/patch-panel/sheets.html).
 
+**Сценарий проведения урока** — [`materials/patch-panel/scenario.docx`](materials/patch-panel/scenario.docx)
+(источник — [`scenario.md`](materials/patch-panel/scenario.md)): полный ход 45 минут с репликами мастера,
+четыре бригады с ротацией по 20 минут, допуск, роли, оценивание на 100 и 43 балла, рефлексия,
+резервные варианты, если МЭШ или интернет недоступны. Раздаточная версия слайдов с заметками —
+[`deck-handout.docx`](materials/patch-panel/deck-handout.docx).
+
+**Ссылки занятия:** приложение к ситуационной задаче —
+`https://uchebnik.mos.ru/material/72074716-114a-4a97-a304-79077fbbff5e`, сценарий урока в МЭШ —
+`https://uchebnik.mos.ru/material/ebc17f83-c934-43f8-b6cd-2d8b18a2868f`, резерв, если МЭШ
+не открывается, — `https://itsliventsev.github.io/netsys_trainer/simulators/patch-panel/`.
+
 Корневой `index.html` — витрина со списком тренажёров.
 
 - Статический сайт без сборки и без внешних CDN — работает на GitHub Pages и внутри `iframe`
@@ -132,6 +143,8 @@ shared/                       ОРИГИНАЛЫ общего кода (исто
 tools/
   build.js                    раскладывает общие файлы по папкам лабораторий
   serve.js                    локальный статический сервер без зависимостей
+  md_to_docx.py               markdown → .docx для сценария занятия (python-docx)
+  deck_to_docx.py             слайды lessons/* → .docx с заметками мастера (python-docx)
 
 lessons/
   patch-panel/                СЦЕНАРИЙ УРОКА — 22 слайда, заметки мастера, печать
@@ -145,6 +158,10 @@ materials/
   patch-panel/sheets.html     раздатки на A4: задание, карта на 8 этапов, акт, журнал (24 порта),
                               карточка мастера с чек-листом на 43 балла
   patch-panel/css/sheets.css  оформление листов и правила печати
+  patch-panel/scenario.md     сценарий проведения урока: ход 45 минут, реплики, 4 бригады,
+                              ротация по 20 минут, оценивание, рефлексия, резервные варианты
+  patch-panel/scenario.docx   тот же сценарий для печати (собирается tools/md_to_docx.py)
+  patch-panel/deck-handout.docx  слайды с заметками мастера (собирается tools/deck_to_docx.py)
 
 tests/
   helpers.js                  jsdom-стенд: поднимает страницу лаборатории в памяти
@@ -157,7 +174,8 @@ tests/
   network-socket-full.test.js сквозной сценарий лаборатории 02 (97/100)
   patch-panel.test.js         дымовой тест квеста 04: роли, чат, решения, изоляция
   patch-panel-full.test.js    сквозной сценарий квеста 04: 8 эпизодов, журнал, 95/100
-  deck.test.js                сценарий урока: 22 слайда, заметки, навигация, автономность
+  deck.test.js                сценарий урока: 22 слайда, заметки, навигация, автономность,
+                              раздатки, сценарий .md/.docx
   socket-quest.test.js        дымовой тест квеста: сюжет, решения, сохранение
   socket-quest-full.test.js   сквозной сценарий квеста: 7 эпизодов, акт, 98/100
 

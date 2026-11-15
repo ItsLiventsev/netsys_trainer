@@ -4,7 +4,20 @@
 **Тема:** Монтаж коммутационной панели (патч-панели 19″, 24 × RJ-45, Cat 6A, T568B).
 **Объём темы:** 8 академических часов (один учебный день или два занятия по 4 часа).
 **Первый урок:** 45 минут — вход в тему (модули 1–3 технологической карты).
-**Материалы:** сценарий урока — [`lessons/patch-panel/`](../../lessons/patch-panel/), интерактивная смена — [`simulators/patch-panel/`](../../simulators/patch-panel/).
+**Материалы:**
+полный сценарий проведения — [`scenario.md`](scenario.md) и [`scenario.docx`](scenario.docx);
+раздаточная версия слайдов — [`deck-handout.docx`](deck-handout.docx);
+презентация — [`lessons/patch-panel/`](../../lessons/patch-panel/);
+интерактивная смена — [`simulators/patch-panel/`](../../simulators/patch-panel/);
+печатные листы — [`sheets.html`](sheets.html).
+
+**Ссылки занятия:**
+
+| Ресурс | Адрес |
+| --- | --- |
+| Приложение к ситуационной задаче (МЭШ) | https://uchebnik.mos.ru/material/72074716-114a-4a97-a304-79077fbbff5e |
+| Сценарий урока (МЭШ) | https://uchebnik.mos.ru/material/ebc17f83-c934-43f8-b6cd-2d8b18a2868f |
+| Резервное приложение (если МЭШ не открывается) | https://itsliventsev.github.io/netsys_trainer/simulators/patch-panel/ |
 
 ---
 
@@ -26,6 +39,24 @@
 
 Бригады (3–4 человека) меняются зонами **каждые 20 минут** по тайм-боксу. К концу смены через
 стойку проходит вся группа: панель одна, но каждый заделывает свой порт и защищает его на приёмке.
+
+---
+
+## 1.7. Документы занятия
+
+| Документ | Файл | Кому |
+| --- | --- | --- |
+| Сценарий проведения урока (полный текст хода, реплики, ротация, оценивание) | `scenario.docx` / `scenario.md` | мастеру, эксперту, методисту |
+| Раздаточная версия слайдов (22 слайда + заметки мастера) | `deck-handout.docx` | мастеру на стол, для портфолио |
+| Печатные листы бригадам | `sheets.html` (5 листов A4) | по одному комплекту на бригаду |
+| Презентация для экрана | `lessons/patch-panel/index.html` | вести занятие |
+
+Сценарий в `.docx` собирается из `scenario.md` одной командой:
+
+```bash
+python3 tools/md_to_docx.py materials/patch-panel/scenario.md materials/patch-panel/scenario.docx
+python3 tools/deck_to_docx.py lessons/patch-panel/index.html materials/patch-panel/deck-handout.docx
+```
 
 ---
 
