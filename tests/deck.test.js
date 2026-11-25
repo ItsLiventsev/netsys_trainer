@@ -117,7 +117,15 @@ function run() {
   ].forEach((needle) => {
     assert.ok(scenario.includes(needle), 'в сценарии занятия есть «' + needle + '»');
   });
-  [SHEETS + '/scenario.docx', SHEETS + '/deck-handout.docx'].forEach((rel) => {
+  const practical = read(SHEETS + '/practical-work-panel.md');
+  ['T568B', 'Чек-лист самопроверки', 'Чек-лист проверки мастера', 'Итого', '100'].forEach((needle) => {
+    assert.ok(practical.includes(needle), 'в практическом занятии есть «' + needle + '»');
+  });
+  ['учебный стенд', 'монтажный макет'].forEach((needle) => {
+    assert.ok(practical.includes(needle), 'место монтажа не привязано только к стойке: есть «' + needle + '»');
+  });
+
+  [SHEETS + '/scenario.docx', SHEETS + '/deck-handout.docx', SHEETS + '/practical-work-panel.docx'].forEach((rel) => {
     const full = path.join(ROOT, rel);
     assert.ok(fs.existsSync(full), 'собран документ ' + rel);
     assert.ok(fs.statSync(full).size > 20000, rel + ' не пустой');
@@ -126,7 +134,7 @@ function run() {
   assert.ok(root.includes('materials/patch-panel/scenario.docx'), 'на витрине есть карточка сценария');
 
   window.close();
-  console.log('✓ Сценарий урока: 22 слайда, заметки, навигация, раздатки на 5 листов, сценарий .md/.docx, автономность');
+  console.log('✓ Сценарий урока: 22 слайда, заметки, навигация, раздатки на 5 листов, сценарий и практическая работа, автономность');
 }
 
 try {

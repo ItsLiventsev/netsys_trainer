@@ -49,6 +49,7 @@
 | Сценарий проведения урока (полный текст хода, реплики, ротация, оценивание) | `scenario.docx` / `scenario.md` | мастеру, эксперту, методисту |
 | Раздаточная версия слайдов (22 слайда + заметки мастера) | `deck-handout.docx` | мастеру на стол, для портфолио |
 | Печатные листы бригадам | `sheets.html` (5 листов A4) | по одному комплекту на бригаду |
+| Практическое занятие № 10 (зона стойки / монтаж панели, чек-листы, 100 баллов) | `practical-work-panel.docx` / `.md` | студентам на руки, мастеру для приёмки |
 | Презентация для экрана | `lessons/patch-panel/index.html` | вести занятие |
 
 Сценарий в `.docx` собирается из `scenario.md` одной командой:
@@ -56,6 +57,7 @@
 ```bash
 python3 tools/md_to_docx.py materials/patch-panel/scenario.md materials/patch-panel/scenario.docx
 python3 tools/deck_to_docx.py lessons/patch-panel/index.html materials/patch-panel/deck-handout.docx
+python3 tools/practical_to_docx.py materials/patch-panel/practical-work-panel.md materials/patch-panel/practical-work-panel.docx
 ```
 
 ---
