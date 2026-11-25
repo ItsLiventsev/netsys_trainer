@@ -145,6 +145,7 @@ tools/
   serve.js                    локальный статический сервер без зависимостей
   md_to_docx.py               markdown → .docx для сценария занятия (python-docx)
   deck_to_docx.py             слайды lessons/* → .docx с заметками мастера (python-docx)
+  practical_to_docx.py        практическое занятие .md → .docx в офисном стиле методички
 
 lessons/
   patch-panel/                СЦЕНАРИЙ УРОКА — 22 слайда, заметки мастера, печать
@@ -162,6 +163,8 @@ materials/
                               ротация по 20 минут, оценивание, рефлексия, резервные варианты
   patch-panel/scenario.docx   тот же сценарий для печати (собирается tools/md_to_docx.py)
   patch-panel/deck-handout.docx  слайды с заметками мастера (собирается tools/deck_to_docx.py)
+  patch-panel/practical-work-panel.md/.docx  практическое занятие № 10: монтаж панели, шаги,
+                              чек-листы самопроверки и мастера, 100 баллов
 
 tests/
   helpers.js                  jsdom-стенд: поднимает страницу лаборатории в памяти
