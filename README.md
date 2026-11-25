@@ -146,6 +146,7 @@ tools/
   md_to_docx.py               markdown → .docx для сценария занятия (python-docx)
   deck_to_docx.py             слайды lessons/* → .docx с заметками мастера (python-docx)
   practical_to_docx.py        практическое занятие .md → .docx в офисном стиле методички
+  sheets_to_docx.py           бланки смены .docx: журнал кроссовой, операционная карта, акт
 
 lessons/
   patch-panel/                СЦЕНАРИЙ УРОКА — 22 слайда, заметки мастера, печать
@@ -165,6 +166,9 @@ materials/
   patch-panel/deck-handout.docx  слайды с заметками мастера (собирается tools/deck_to_docx.py)
   patch-panel/practical-work-panel.md/.docx  практическое занятие № 10: монтаж панели, шаги,
                               чек-листы самопроверки и мастера, 100 баллов
+  patch-panel/journal-krossovoy.docx  журнал кроссовой на 24 порта (бланк)
+  patch-panel/operation-card.docx     операционная карта: 8 этапов, контроль, нормативы
+  patch-panel/act-gost.docx           акт выполненных работ по образцу ГОСТ (бланк)
 
 tests/
   helpers.js                  jsdom-стенд: поднимает страницу лаборатории в памяти

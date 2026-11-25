@@ -50,6 +50,9 @@
 | Раздаточная версия слайдов (22 слайда + заметки мастера) | `deck-handout.docx` | мастеру на стол, для портфолио |
 | Печатные листы бригадам | `sheets.html` (5 листов A4) | по одному комплекту на бригаду |
 | Практическое занятие № 10 (зона стойки / монтаж панели, чек-листы, 100 баллов) | `practical-work-panel.docx` / `.md` | студентам на руки, мастеру для приёмки |
+| Журнал кроссовой (24 порта, дефекты чужой работы, сдача смены) | `journal-krossovoy.docx` | документоведу бригады, на каждую смену |
+| Операционная карта (8 этапов, контроль, нормативы, самоконтроль) | `operation-card.docx` | исполнителю и ответственному за качество |
+| Акт выполненных работ по образцу ГОСТ (оценка 100 баллов) | `act-gost.docx` | на приёмку, второй экземпляр — в портфолио |
 | Презентация для экрана | `lessons/patch-panel/index.html` | вести занятие |
 
 Сценарий в `.docx` собирается из `scenario.md` одной командой:
@@ -58,6 +61,7 @@
 python3 tools/md_to_docx.py materials/patch-panel/scenario.md materials/patch-panel/scenario.docx
 python3 tools/deck_to_docx.py lessons/patch-panel/index.html materials/patch-panel/deck-handout.docx
 python3 tools/practical_to_docx.py materials/patch-panel/practical-work-panel.md materials/patch-panel/practical-work-panel.docx
+python3 tools/sheets_to_docx.py materials/patch-panel   # журнал, карта, акт
 ```
 
 ---

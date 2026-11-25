@@ -125,7 +125,14 @@ function run() {
     assert.ok(practical.includes(needle), 'место монтажа не привязано только к стойке: есть «' + needle + '»');
   });
 
-  [SHEETS + '/scenario.docx', SHEETS + '/deck-handout.docx', SHEETS + '/practical-work-panel.docx'].forEach((rel) => {
+  [
+    SHEETS + '/scenario.docx',
+    SHEETS + '/deck-handout.docx',
+    SHEETS + '/practical-work-panel.docx',
+    SHEETS + '/journal-krossovoy.docx',
+    SHEETS + '/operation-card.docx',
+    SHEETS + '/act-gost.docx'
+  ].forEach((rel) => {
     const full = path.join(ROOT, rel);
     assert.ok(fs.existsSync(full), 'собран документ ' + rel);
     assert.ok(fs.statSync(full).size > 20000, rel + ' не пустой');
